@@ -1,7 +1,7 @@
 package com.pmu.service.users;
 
 import com.google.common.collect.Sets;
-import com.pmu.data.model.user.UserDetail;
+import com.pmu.data.model.users.UserDetail;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

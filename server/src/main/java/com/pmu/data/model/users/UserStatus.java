@@ -1,4 +1,4 @@
-package com.pmu.data.model.user;
+package com.pmu.data.model.users;
 
 public enum UserStatus {
     VERIFIED,PENDING;

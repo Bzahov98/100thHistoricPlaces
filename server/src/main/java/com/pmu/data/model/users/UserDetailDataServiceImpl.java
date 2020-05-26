@@ -1,10 +1,11 @@
-package com.pmu.data.model.user;
+package com.pmu.data.model.users;
 
 import com.pmu.exception.BaseException;
 import com.pmu.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,8 +20,8 @@ public class UserDetailDataServiceImpl implements UserDetailDataService {
     }
 
     @Override
-    public UserDetail findByEmail(String email) {
-        return userDetailRepository.findByEmailAndDeletedFalse(email).orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
+    public Optional<UserDetail> findByEmail(String email) {
+        return userDetailRepository.findByEmailAndDeletedFalse(email);
     }
 
     @Override

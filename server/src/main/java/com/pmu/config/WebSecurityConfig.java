@@ -1,6 +1,5 @@
 package com.pmu.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -26,7 +25,7 @@ public class WebSecurityConfig extends ResourceServerConfigurerAdapter {
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
-                        "/register").permitAll()
+                        "/users/signup").permitAll()
                 .anyRequest()
                 .authenticated();
     }

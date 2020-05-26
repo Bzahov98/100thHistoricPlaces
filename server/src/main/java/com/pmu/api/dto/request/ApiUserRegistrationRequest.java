@@ -1,4 +1,4 @@
-package com.pmu.api.dto;
+package com.pmu.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.neovisionaries.i18n.CountryCode;

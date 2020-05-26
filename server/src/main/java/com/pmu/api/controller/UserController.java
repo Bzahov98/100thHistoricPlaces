@@ -1,7 +1,8 @@
 package com.pmu.api.controller;
 
-import com.pmu.api.dto.ApiUserRegistrationRequest;
-import com.pmu.data.model.user.UserDetail;
+import com.pmu.api.dto.request.ApiUserRegistrationRequest;
+import com.pmu.api.dto.response.ApiUserDetailResponse;
+import com.pmu.data.model.users.UserDetail;
 import com.pmu.mapping.ModelMapper;
 import com.pmu.service.users.UserService;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    public UserDetail registerUser(@RequestBody ApiUserRegistrationRequest apiUserRegistrationRequest) {
-        return userService.createUser(modelMapper.map(apiUserRegistrationRequest, UserDetail.class));
+    @PostMapping("/users/signup")
+    public ApiUserDetailResponse registerUser(@RequestBody ApiUserRegistrationRequest apiUserRegistrationRequest) {
+        return modelMapper.map(userService.createUser(modelMapper.map(apiUserRegistrationRequest, UserDetail.class)), ApiUserDetailResponse.class);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.pmu.data.model.user;
+package com.pmu.data.model.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

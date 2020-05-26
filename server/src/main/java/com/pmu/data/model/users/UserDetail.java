@@ -1,12 +1,14 @@
-package com.pmu.data.model.user;
+package com.pmu.data.model.users;
 
 import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
+import com.pmu.data.model.places.Place;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +38,14 @@ public class UserDetail {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "userDetail", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<UserPasswordHistory> passwordHistoryList = Lists.newArrayList();
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "course_like",
+            joinColumns = @JoinColumn(name = "user_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private Set<Place> checkedPlaces = Set.of();
 
     private Boolean deleted = false;
 }

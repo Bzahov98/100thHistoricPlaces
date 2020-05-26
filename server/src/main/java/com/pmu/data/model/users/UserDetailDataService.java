@@ -1,11 +1,12 @@
-package com.pmu.data.model.user;
+package com.pmu.data.model.users;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserDetailDataService {
     UserDetail findById(UUID id);
 
-    UserDetail findByEmail(String email);
+    Optional<UserDetail> findByEmail(String email);
 
     UserDetail saveUser(UserDetail userDetail);
 }
