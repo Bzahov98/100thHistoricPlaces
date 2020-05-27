@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class CustomJwtTokenConverter extends JwtAccessTokenConverter {
 
-    public static String USER_ID = "USER_ID";
-    public static String EMAIL = "EMAIL";
+    public static String USER_ID = "user_id";
+    public static String EMAIL = "email";
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
@@ -32,5 +32,13 @@ public class CustomJwtTokenConverter extends JwtAccessTokenConverter {
         String encoded = super.encode(accessToken, authentication);
         ((DefaultOAuth2AccessToken) accessToken).setValue(encoded);
         return super.enhance(accessToken, authentication);
+    }
+
+    @Override
+    public OAuth2Authentication extractAuthentication(Map<String, ?> claims) {
+        OAuth2Authentication authentication
+                = super.extractAuthentication(claims);
+        authentication.setDetails(claims);
+        return authentication;
     }
 }
