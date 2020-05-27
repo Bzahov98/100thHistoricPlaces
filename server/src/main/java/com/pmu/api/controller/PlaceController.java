@@ -1,7 +1,7 @@
 package com.pmu.api.controller;
 
 import com.pmu.api.dto.request.ApiPlaceCreateRequest;
-import com.pmu.api.dto.request.ApiPlaceFilter;
+import com.pmu.api.dto.filter.ApiPlaceFilter;
 import com.pmu.api.dto.response.ApiPlaceResponse;
 import com.pmu.data.model.places.Place;
 import com.pmu.mapping.ModelMapper;

@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Place {
 
     @Id
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     private String name;
 

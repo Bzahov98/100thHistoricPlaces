@@ -1,6 +1,7 @@
 package com.pmu.service.places;
 
-import com.pmu.api.dto.request.ApiPlaceFilter;
+import com.pmu.api.dto.filter.ApiPlaceFilter;
+import com.pmu.api.dto.filter.Filter;
 import com.pmu.data.model.places.Place;
 import com.pmu.data.model.places.PlaceDataService;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Page<Place> findAll(ApiPlaceFilter filter, Pageable pageable) {
+    public Page<Place> findAll(Filter filter, Pageable pageable) {
         return placeDataService.findAll(filter.toPredicate(), pageable);
     }
 

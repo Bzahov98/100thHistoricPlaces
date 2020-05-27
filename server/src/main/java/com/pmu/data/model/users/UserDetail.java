@@ -42,7 +42,7 @@ public class UserDetail {
 
     @ManyToMany
     @JoinTable(
-            name = "course_like",
+            name = "user_detail_place",
             joinColumns = @JoinColumn(name = "user_detail_id"),
             inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> checkedPlaces = Set.of();
