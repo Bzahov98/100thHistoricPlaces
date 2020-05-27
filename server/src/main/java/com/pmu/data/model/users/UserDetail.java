@@ -3,6 +3,7 @@ package com.pmu.data.model.users;
 import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
 import com.pmu.data.model.places.Place;
+import com.pmu.data.model.places.UserDetailPlaceAssignment;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,13 +40,8 @@ public class UserDetail {
     @OneToMany(mappedBy = "userDetail", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<UserPasswordHistory> passwordHistoryList = Lists.newArrayList();
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_detail_place",
-            joinColumns = @JoinColumn(name = "user_detail_id"),
-            inverseJoinColumns = @JoinColumn(name = "place_id"))
-    private Set<Place> checkedPlaces = Set.of();
+    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "userDetail")
+    private List<UserDetailPlaceAssignment> checkedPlaces = List.of();
 
     private Boolean deleted = false;
 }

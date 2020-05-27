@@ -1,5 +1,8 @@
 package com.pmu.service.users;
 
+import com.pmu.api.context.ContextHolder;
+import com.pmu.data.model.places.Place;
+import com.pmu.data.model.places.UserDetailPlaceAssignment;
 import com.pmu.data.model.users.UserDetail;
 import com.pmu.data.model.users.UserDetailDataService;
 import com.pmu.exception.BaseException;
@@ -11,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,5 +46,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetail findById(UUID id) {
         return userService.findById(id);
+    }
+
+    @Override
+    public void checkUserOnPlace(Place place) {
+        UserDetail userDetail = userService.findById(ContextHolder.get().getUserId());
+        userDetail.getCheckedPlaces().add(UserDetailPlaceAssignment.builder()
+                .place(place)
+                .userDetail(userDetail)
+                .build());
+
+        userService.saveUser(userDetail);
+    }
+
+    @Override
+    public List<UserDetailPlaceAssignment> findAllCheckedPlaces() {
+        return userService.findById(ContextHolder.get().getUserId()).getCheckedPlaces();
     }
 }
