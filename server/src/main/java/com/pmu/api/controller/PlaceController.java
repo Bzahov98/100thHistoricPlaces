@@ -53,7 +53,7 @@ public class PlaceController {
         userService.checkUserOnPlace(place);
     }
 
-    @GetMapping("/places/me}")
+    @GetMapping("/places/me")
     @ApiOperation("Get all places checked by user")
     public List<ApiPlaceCheckResponse> getCheckedPlaces() {
         return modelMapper.mapAsList(userService.findAllCheckedPlaces(), ApiPlaceCheckResponse.class);
