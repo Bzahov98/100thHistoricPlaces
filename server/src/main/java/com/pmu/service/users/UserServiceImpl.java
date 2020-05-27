@@ -1,12 +1,14 @@
 package com.pmu.service.users;
 
 import com.pmu.api.context.ContextHolder;
+import com.pmu.data.model.places.LatLng;
 import com.pmu.data.model.places.Place;
 import com.pmu.data.model.places.UserDetailPlaceAssignment;
 import com.pmu.data.model.users.UserDetail;
 import com.pmu.data.model.users.UserDetailDataService;
 import com.pmu.exception.BaseException;
 import com.pmu.exception.ErrorCode;
+import com.pmu.util.DistanceUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -49,7 +51,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void checkUserOnPlace(Place place) {
+    public void checkUserOnPlace(Place place, LatLng currentPlace) {
+        if (DistanceUtil.calculateDistance(place.getLatLng(), currentPlace) > 1)
+            throw  new BaseException(ErrorCode.NOT_ENOUGH_CLOSE_TO_PLACE);
         UserDetail userDetail = userService.findById(ContextHolder.get().getUserId());
         userDetail.getCheckedPlaces().add(UserDetailPlaceAssignment.builder()
                 .place(place)

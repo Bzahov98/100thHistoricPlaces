@@ -1,5 +1,6 @@
 package com.pmu.service.users;
 
+import com.pmu.data.model.places.LatLng;
 import com.pmu.data.model.places.Place;
 import com.pmu.data.model.places.UserDetailPlaceAssignment;
 import com.pmu.data.model.users.UserDetail;
@@ -14,7 +15,7 @@ public interface UserService extends UserDetailsService {
 
     UserDetail findById(UUID id);
 
-    void checkUserOnPlace(Place place);
+    void checkUserOnPlace(Place place, LatLng currentPlace);
 
     List<UserDetailPlaceAssignment> findAllCheckedPlaces();
 }

@@ -50,7 +50,7 @@ public class PlaceController {
     @ApiOperation("Check user for place")
     public void checkUserOnPace(@PathVariable UUID placeId, @RequestBody LatLng latLng) {
         Place place = placeService.findById(placeId);
-        userService.checkUserOnPlace(place);
+        userService.checkUserOnPlace(place, latLng);
     }
 
     @GetMapping("/places/me")
