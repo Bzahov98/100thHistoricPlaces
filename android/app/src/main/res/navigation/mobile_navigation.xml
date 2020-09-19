@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mobile_navigation.xml"
-    app:startDestination="@id/mapAllPlaceFragment">
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+    app:startDestination="@id/profileFragment">
 
-    <fragment
-        android:id="@+id/mapAllPlaceFragment"
-        android:name="com.tu.pmu.the100th.ui.mapAllPlaces.MapAllPlacesFragment"
-        android:label="current_weather_fragment"
-        tools:layout="@layout/map_all_places_fragment" />
+    <fragment android:id="@+id/profileFragment"
+        android:name="com.tu.pmu.the100th.ui.fragments.profile.ProfileFragment"
+        android:label="Profile" tools:layout="@layout/profile_fragment"/>
+<!--    <fragment android:id="@+id/quotesFragment"-->
+<!--        android:name="net.simplifiedcoding.mvvmsampleapp.ui.home.quotes.QuotesFragment"-->
+<!--        android:label="Quotes" tools:layout="@layout/quotes_fragment"/>-->
 </navigation>

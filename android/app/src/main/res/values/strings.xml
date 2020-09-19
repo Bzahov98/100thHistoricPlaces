@@ -12,4 +12,16 @@
     <string name="map_all_places_fragment">AllPlaces</string>
     <string name="menu_name_map_all_places">All places</string>
     <string name="menu_name_user_profile">My profile</string>
+    <string name="places_api_url">https://api.100national.com/</string>
+    <string name="_100th_national_places">100th National Places</string>
+    <string name="_100th_bg_places">100th BG Places</string>
+    <string name="title_activity_signup">SignUp</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="example_email_com">example@email.com</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="date_hint">12/12/2012</string>
+    <string name="log_out">Log out</string>
 </resources>
