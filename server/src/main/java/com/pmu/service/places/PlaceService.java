@@ -1,6 +1,5 @@
 package com.pmu.service.places;
 
-import com.pmu.api.dto.filter.ApiPlaceFilter;
 import com.pmu.api.dto.filter.Filter;
 import com.pmu.data.model.places.Place;
 import org.springframework.data.domain.Page;

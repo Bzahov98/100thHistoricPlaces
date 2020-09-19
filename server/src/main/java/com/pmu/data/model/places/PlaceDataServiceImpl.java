@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,11 @@ public class PlaceDataServiceImpl implements PlaceDataService {
     @Override
     public Page<Place> findAll(Predicate predicate, Pageable pageable) {
         return placeRepository.findAll(predicate, pageable);
+    }
+
+    @Override
+    public Optional<Place> findOne(Predicate predicate) {
+        return placeRepository.findOne(predicate);
     }
 
     @Override

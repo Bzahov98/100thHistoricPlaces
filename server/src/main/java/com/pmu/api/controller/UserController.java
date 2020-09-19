@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 public class UserController {
@@ -21,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users/signup")
-    public ApiUserDetailResponse registerUser(@RequestBody ApiUserRegistrationRequest apiUserRegistrationRequest) {
+    public ApiUserDetailResponse registerUser(@Valid @RequestBody ApiUserRegistrationRequest apiUserRegistrationRequest) {
         return modelMapper.map(userService.createUser(modelMapper.map(apiUserRegistrationRequest, UserDetail.class)), ApiUserDetailResponse.class);
     }
 

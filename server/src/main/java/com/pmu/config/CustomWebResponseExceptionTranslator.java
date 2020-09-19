@@ -15,7 +15,7 @@ public class CustomWebResponseExceptionTranslator implements WebResponseExceptio
     public ResponseEntity translate(Exception e) throws Exception {
         if (e instanceof BaseException) {
             BaseException ex = (BaseException) e;
-            return new ResponseEntity<>(new Error(ex.getErrorCode(), e.getMessage()), ex.getErrorCode().getHttpStatus());
+            return new ResponseEntity<>(new Error(ex.getErrorCode(), e.getMessage(), null), ex.getErrorCode().getHttpStatus());
         } else if (e instanceof OAuth2Exception) {
             OAuth2Exception ex = (OAuth2Exception) e;
             OAuth2ErrorCode oAuth2ErrorCode = OAuth2ErrorCode.getErrorCodeFromErrorDescription(ex.getOAuth2ErrorCode());
@@ -25,8 +25,8 @@ public class CustomWebResponseExceptionTranslator implements WebResponseExceptio
                     oAuth2ErrorCode = OAuth2ErrorCode.INVALID_GRANT;
                 }
             }
-            return new ResponseEntity<>(new Error(oAuth2ErrorCode, e.getMessage()), HttpStatus.valueOf(ex.getHttpErrorCode()));
+            return new ResponseEntity<>(new Error(oAuth2ErrorCode, e.getMessage(), null), HttpStatus.valueOf(ex.getHttpErrorCode()));
         }
-        return new ResponseEntity<>(new Error(OAuth2ErrorCode.OAUTH_ERROR, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Error(OAuth2ErrorCode.OAUTH_ERROR, e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

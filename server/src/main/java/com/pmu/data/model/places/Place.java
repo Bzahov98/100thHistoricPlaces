@@ -6,9 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,4 +28,10 @@ public class Place {
     private LatLng latLng;
 
     private Boolean deleted = false;
+
+    private Integer points = 0;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "place")
+    private List<UserDetailPlaceAssignment> checkedUsers;
+
 }

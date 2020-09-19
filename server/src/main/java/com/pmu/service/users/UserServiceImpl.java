@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,12 +54,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void checkUserOnPlace(Place place, LatLng currentPlace) {
         if (DistanceUtil.calculateDistance(place.getLatLng(), currentPlace) > 1)
-            throw  new BaseException(ErrorCode.NOT_ENOUGH_CLOSE_TO_PLACE);
+            throw new BaseException(ErrorCode.NOT_ENOUGH_CLOSE_TO_PLACE);
         UserDetail userDetail = userService.findById(ContextHolder.get().getUserId());
         userDetail.getCheckedPlaces().add(UserDetailPlaceAssignment.builder()
                 .place(place)
                 .userDetail(userDetail)
                 .build());
+        userDetail.setPoints(userDetail.getPoints().add(BigDecimal.valueOf(place.getPoints())));
 
         userService.saveUser(userDetail);
     }

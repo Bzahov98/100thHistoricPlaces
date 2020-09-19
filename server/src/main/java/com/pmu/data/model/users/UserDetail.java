@@ -2,14 +2,16 @@ package com.pmu.data.model.users;
 
 import com.google.common.collect.Lists;
 import com.neovisionaries.i18n.CountryCode;
-import com.pmu.data.model.places.Place;
 import com.pmu.data.model.places.UserDetailPlaceAssignment;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +32,8 @@ public class UserDetail {
 
     private LocalDate dateOfBirth;
 
+    private BigDecimal points = BigDecimal.ZERO;
+
     @Enumerated(EnumType.STRING)
     private CountryCode nationality;
 
@@ -41,7 +45,7 @@ public class UserDetail {
     private List<UserPasswordHistory> passwordHistoryList = Lists.newArrayList();
 
     @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "userDetail")
-    private List<UserDetailPlaceAssignment> checkedPlaces = List.of();
+    private List<UserDetailPlaceAssignment> checkedPlaces;
 
     private Boolean deleted = false;
 }

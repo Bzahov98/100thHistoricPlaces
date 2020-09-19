@@ -9,7 +9,9 @@ public enum ErrorCode implements ErrorCodeInterface {
     INCORRECT_FORMAT_OF_PASSWORD(HttpStatus.BAD_REQUEST,"Please eneter password longer than 8 symbols."),
     PLACE_NOT_FOUND(HttpStatus.NOT_FOUND),
     NOT_ENOUGH_CLOSE_TO_PLACE(HttpStatus.NOT_FOUND),
-    CANNOT_MAP_RESPONSE(HttpStatus.INTERNAL_SERVER_ERROR);
+    CANNOT_MAP_RESPONSE(HttpStatus.INTERNAL_SERVER_ERROR),
+    BAD_INPUT_BODY(HttpStatus.BAD_REQUEST),
+    PLACE_ALREADY_EXIST(HttpStatus.BAD_REQUEST);
     @Getter
     private HttpStatus httpStatus;
 

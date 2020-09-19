@@ -1,9 +1,12 @@
 package com.pmu.service.places;
 
-import com.pmu.api.dto.filter.ApiPlaceFilter;
 import com.pmu.api.dto.filter.Filter;
 import com.pmu.data.model.places.Place;
 import com.pmu.data.model.places.PlaceDataService;
+import com.pmu.data.model.places.QPlace;
+import com.pmu.exception.BaseException;
+import com.pmu.exception.ErrorCode;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +22,14 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place create(Place place) {
+
+        QPlace place1 = QPlace.place;
+        BooleanExpression predicate = place1.name.eq(place.getName())
+                .or(place1.latLng.eq(place.getLatLng()));
+        placeDataService.findOne(predicate).ifPresent(place2 -> {
+            throw new BaseException(ErrorCode.PLACE_ALREADY_EXIST, null);
+        });
+
         return placeDataService.create(place);
     }
 

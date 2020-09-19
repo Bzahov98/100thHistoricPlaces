@@ -14,4 +14,6 @@ public class ApiPlaceResponse {
     private String description;
 
     private LatLng latLng;
+
+    private Boolean checked;
 }

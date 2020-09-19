@@ -4,6 +4,7 @@ import com.neovisionaries.i18n.CountryCode;
 import com.pmu.data.model.users.UserStatus;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -23,4 +24,6 @@ public class ApiUserDetailResponse {
     private CountryCode nationality;
 
     private UserStatus status;
+
+    private BigDecimal points;
 }
