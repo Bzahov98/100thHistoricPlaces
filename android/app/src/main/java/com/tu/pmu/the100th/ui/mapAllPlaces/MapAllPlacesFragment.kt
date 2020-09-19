@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.ui.base.ScopedFragment
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
+import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 class MapAllPlacesFragment : ScopedFragment(), KodeinAware {
-    override val kodein by closestKodein()
+    override val kodein by kodein()
     private val viewModelFactory: MapAllPlacesViewModelFactory by instance<MapAllPlacesViewModelFactory>()
     private lateinit var viewModel: MapAllPlacesViewModel
 
