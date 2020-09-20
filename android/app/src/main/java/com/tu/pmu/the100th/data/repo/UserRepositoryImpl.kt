@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tu.pmu.the100th.data.db.dao.AuthDao
+import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.db.entities.auth.User
 import com.tu.pmu.the100th.data.db.entities.auth.UserStatusEnum
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDataSource
@@ -34,17 +35,6 @@ class UserRepositoryImpl(
         }
     }
 
-    private fun persistFetchedSignUpCredentials(it: AuthSignUpResponse?) {
-        GlobalScope.launch(Dispatchers.IO) {
-            if (it != null) {
-                Log.d(
-                    TAG,
-                    "persistFetchedLoginCreditentals: authResponse for registered\n userID:${it.id}\n email: ${it.email}"
-                )
-            } else Log.e(TAG, "persistFetchedSignUpCreditentals: authResponse is null")
-        }
-    }
-
     private fun persistFetchedLoginCredentials(it: AuthLoginResponse?) {
         GlobalScope.launch(Dispatchers.IO) {
             if (it != null) {
@@ -57,39 +47,46 @@ class UserRepositoryImpl(
         }
     }
 
+    private fun persistFetchedSignUpCredentials(it: AuthSignUpResponse?) {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (it != null) {
+                Log.d(
+                    TAG,
+                    "persistFetchedLoginCreditentals: authResponse for registered\n userID:${it.id}\n email: ${it.email}"
+                )
+            } else Log.e(TAG, "persistFetchedSignUpCreditentals: authResponse is null")
+        }
+    }
+
     override suspend fun userLogin(
         email: String,
         password: String,
         name: String
     ): LiveData<User> {
-        //Log.d("UserRepositoryImpl", "userLogin TEST IS OK")
-        fetchUserLogin(email, password)
+        loginDataSource.fetchLoginResponse(
+            email,
+            password
+        )
         return withContext(Dispatchers.IO) {
             return@withContext userDao.getCurrentUser()
         }
+    }
+
+    override suspend fun userSignup(newUser: SignupUserJsonBody) {
+        signUpDataSource.fetchSignUpResponse(
+            newUser
+        )
+    }
+
+//    override suspend fun userSignup(name: String, email: String, password: String): AuthResponse {
+//        // TODO fetch data from api
+//        Log.d("UserRepositoryImpl", " userSignup TEST IS OK")
 //        return AuthResponse(
 //            true,
 //            "TEST",
 //            User(UserStatusEnum.LoggedOut, name, email, password, "test", "test", "test")
 //        )
-    }
-
-    private suspend fun fetchUserLogin(email: String, password: String) {
-        loginDataSource.fetchLoginResponse(
-            email,
-            password
-        )
-    }
-
-    override suspend fun userSignup(name: String, email: String, password: String): AuthResponse {
-        // TODO fetch data from api
-        Log.d("UserRepositoryImpl", " userSignup TEST IS OK")
-        return AuthResponse(
-            true,
-            "TEST",
-            User(UserStatusEnum.LoggedOut, name, email, password, "test", "test", "test")
-        )
-    }
+//    }
 
     // TODO put it in DB
     override suspend fun saveUser(user: User): Long {
@@ -99,9 +96,14 @@ class UserRepositoryImpl(
         return userDao.upsert(user)
     }
 
-    override fun getUser(): LiveData<User> {
+    override fun getLoggedInUser(): LiveData<User> {
         Log.d("UserRepositoryImpl", "getUser TEST IS OK")
         return userDao.getCurrentUser()
+    }
+
+    override fun getLastSignUpResponse(): LiveData<AuthSignUpResponse> {
+        Log.d("UserRepositoryImpl", "getUser TEST IS OK")
+        return signUpDataSource.downloadedAuthData
     }
 
     override suspend fun logout() {

@@ -65,7 +65,7 @@
                 android:padding="18dp">
 
                 <EditText
-                    android:id="@+id/edit_text_email"
+                    android:id="@+id/loginEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
@@ -77,7 +77,7 @@
                     android:padding="12dp" />
 
                 <EditText
-                    android:id="@+id/edit_text_password"
+                    android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"

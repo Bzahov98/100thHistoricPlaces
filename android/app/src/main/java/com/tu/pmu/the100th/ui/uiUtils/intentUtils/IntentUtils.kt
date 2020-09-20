@@ -14,10 +14,11 @@ fun startMainActivity(context: Context) {
     }
 }
 
-fun startLoginActivity(context: Context) {
+fun startLoginActivity(context: Context, emailHint : String = "") {
     Intent(context, LoginActivity::class.java).also {
+        val a = it.putExtra("email",emailHint)
         //it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(context,it,it.extras)
+        startActivity(context,it,a.extras)
         //finish()
     }
 }

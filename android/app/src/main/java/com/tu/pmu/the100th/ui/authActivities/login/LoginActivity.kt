@@ -1,13 +1,8 @@
 package com.tu.pmu.the100th.ui.authActivities.login
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -52,10 +47,10 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
-        // DEBUG: ...............v
+        // Debug: ...............v
         login100places.setOnClickListener {
-            edit_text_email.setText(getString(R.string.debug_test_user_email))
-            edit_text_password.setText(getString(R.string.debug_test_user_pass))
+            loginEmail.setText(getString(R.string.debug_test_user_email))
+            loginPassword.setText(getString(R.string.debug_test_user_pass))
         }
 
         loginActivityRoot.setOnTouchListener { v, event ->
@@ -65,20 +60,25 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             }
             false
         }
+
     }
 
-    private fun observe() {
-        viewModel.getLoggedInUser().observe(this, Observer { user ->
-            if (user != null) {
-//                startMainActivity()
+    override fun onResume() {
+        super.onResume()
+        val extras = intent.extras
+        val signedEmail: String?
+        if (extras != null) {
+            signedEmail = extras.getString("email")
+            if (signedEmail != "") {
+                loginEmail.setText(signedEmail)
             }
-        })
+        }
     }
 
     private fun loginUser() {
         //val name = binding.editTextEmail.text.toString().trim()
-        val email = binding.editTextEmail.text.toString().trim()
-        val password = binding.editTextPassword.text.toString().trim()
+        val email = binding.loginEmail.text.toString().trim()
+        val password = binding.loginPassword.text.toString().trim()
 
         if (!areFieldsValid(email, password)) {
             return
@@ -103,21 +103,22 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     private fun areFieldsValid(email: String, password: String): Boolean {
         if (!ValidationUtils.isValidEmail(email)) {
             loginActivityRoot.snackbar("Email address is invalid")
-            edit_text_email.error = "Email address is invalid"
+            loginEmail.error = "Email address is invalid"
             clearInputData()
             return false
         }
         if (!ValidationUtils.isValidPassword(password)) {
             loginActivityRoot.snackbar("Password is in invalid format")
             clearInputData()
+            loginPassword.error = "Email address is invalid"
             return false
         }
         return true
     }
 
     private fun clearInputData() {
-        edit_text_email.setText("")
-        val password = binding.editTextPassword.setText("")
+        loginEmail.setText("")
+        loginPassword.setText("")
     }
 //    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
 //        if (currentFocus != null) {

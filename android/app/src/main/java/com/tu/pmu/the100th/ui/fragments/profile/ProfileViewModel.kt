@@ -10,8 +10,8 @@ class ProfileViewModel(
     val repository: UserRepository
 ) : ViewModel() {
 
-    fun getLoggedInUser() = repository.getUser()
-    var user = repository.getUser()
+    fun getLoggedInUser() = repository.getLoggedInUser()
+    var user = repository.getLoggedInUser()
     fun logOut(){
         CoroutineScope(Dispatchers.IO).launch{
             repository.logout()
