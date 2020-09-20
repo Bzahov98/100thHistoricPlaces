@@ -8,6 +8,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:background="#E2E2E2"
+        android:id="@+id/signupActivityRoot"
         android:layout_height="match_parent"
         tools:context=".ui.auth.SignupActivity">
 
@@ -42,6 +43,7 @@
                     android:textColor="#465A61"/>
 
                 <TextView
+                    android:id="@+id/login100places"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/_100th_bg_places"
                     android:layout_width="wrap_content"
@@ -62,7 +64,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/edit_text_first_name"
+                    android:id="@+id/signupFirstName"
                     android:hint="@string/first_name"
                     android:inputType="text"
                     android:drawablePadding="16dp"
@@ -73,7 +75,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_height="match_parent"/>
                 <EditText
-                    android:id="@+id/edit_text_last_name"
+                    android:id="@+id/signupLastName"
                     android:hint="@string/last_name"
                     android:inputType="text"
                     android:drawablePadding="16dp"
@@ -85,7 +87,7 @@
                     android:layout_height="match_parent"/>
 
                 <EditText
-                    android:id="@+id/edit_text_email"
+                    android:id="@+id/signupEmail"
                     android:hint="@string/example_email_com"
                     android:inputType="textEmailAddress"
                     android:drawablePadding="16dp"
@@ -97,7 +99,7 @@
                     android:layout_height="match_parent"/>
 
                 <EditText
-                    android:id="@+id/edit_text_password"
+                    android:id="@+id/signupPassword"
                     android:inputType="textPassword"
                     android:hint="@string/password"
                     android:drawablePadding="16dp"
@@ -109,7 +111,7 @@
                     android:layout_height="match_parent"/>
 
                 <EditText
-                    android:id="@+id/edit_text_password_confirm"
+                    android:id="@+id/signupPasswordConfirm"
                     android:inputType="textPassword"
                     android:hint="@string/confirm_password"
                     android:drawablePadding="16dp"
@@ -121,7 +123,7 @@
                     android:layout_height="match_parent"/>
 
                 <EditText
-                    android:id="@+id/edit_text_date"
+                    android:id="@+id/signupBirthDate"
                     android:inputType="date"
                     android:hint="@string/date_hint"
                     android:drawablePadding="16dp"

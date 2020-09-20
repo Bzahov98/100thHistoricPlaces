@@ -24,7 +24,6 @@ class AuthSignupNetworkDataSourceImpl(private val placesApiService: PlacesApiSer
                 .userSignupAsync(body)
                 .await()
             downloadedAuthDataMutable.postValue(fetchedAuth)
-
             //Log.d("TAG_connectivity", "CURRENT WEATHER: \n$fetchedAuth\n")
         } catch (ignored: NoInternetException) {
             Log.e(TAG, "No Internet Connection:")
