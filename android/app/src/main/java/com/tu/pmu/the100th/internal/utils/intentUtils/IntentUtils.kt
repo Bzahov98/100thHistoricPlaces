@@ -1,10 +1,10 @@
-package com.tu.pmu.the100th.ui.uiUtils.intentUtils
+package com.tu.pmu.the100th.internal.utils.intentUtils
 
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import com.tu.pmu.the100th.ui.authActivities.login.LoginActivity
-import com.tu.pmu.the100th.ui.MainActivity.MainActivity
+import com.tu.pmu.the100th.ui.mainActivity.MainActivity
 
 fun startMainActivity(context: Context) {
     Intent(context, MainActivity::class.java).also {

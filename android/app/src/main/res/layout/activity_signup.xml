@@ -121,18 +121,39 @@
                     android:layout_marginBottom="12dp"
                     android:padding="12dp"
                     android:layout_height="match_parent"/>
-
-                <EditText
-                    android:id="@+id/signupBirthDate"
-                    android:inputType="date"
-                    android:hint="@string/date_hint"
-                    android:drawablePadding="16dp"
-                    android:drawableStart="@drawable/birthday_24px"
-                    android:background="@drawable/edit_text_round_gray_background"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="12dp"
-                    android:padding="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/signupBirthDate"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_round_gray_background"
+                        android:drawableStart="@drawable/birthday_24px"
+                        android:drawablePadding="16dp"
+                        android:hint="@string/date_hint"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:padding="12dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/signupDateButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/signupDateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="-22dp"
+                        android:text="@string/pick_date"
+                        android:textSize="13dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
                 <!--<TextView

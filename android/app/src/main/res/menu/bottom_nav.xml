@@ -4,10 +4,12 @@
     <item
         android:title="Home"
         android:id="@+id/profileFragment"
+        android:icon="@drawable/profile_50px"
         />
 
     <item
         android:title="AllPlaces"
         android:id="@+id/allPlacesFragment"
+        android:icon="@drawable/map_50px"
         />
 </menu>

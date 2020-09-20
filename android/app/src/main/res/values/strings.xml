@@ -32,5 +32,8 @@
     <string name="debug_test_user_first_name">Bojo</string>
     <string name="debug_test_user_last_name">Petio</string>
     <string name="debug_test_user_birth_date">11/09/2011</string>
+    <string name="pick_date">pick Date</string>
+    <string name="error_choose_date_before_today">Please choose date before today</string>
+    <string name="default_location">Sofia</string>
 
 </resources>

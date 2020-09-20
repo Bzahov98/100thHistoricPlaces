@@ -1,21 +1,22 @@
 package com.tu.pmu.the100th.ui.authActivities.signUp
 
 import android.os.Bundle
-import android.util.Log
+import android.text.format.DateUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
-import com.tu.pmu.the100th.data.db.entities.auth.UserStatusEnum
 import com.tu.pmu.the100th.databinding.ActivitySignupBinding
+import com.tu.pmu.the100th.internal.utils.LongDateUtils
 import com.tu.pmu.the100th.internal.utils.hideSoftKeyboard
 import com.tu.pmu.the100th.internal.utils.snackbar
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModel
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
-import com.tu.pmu.the100th.ui.uiUtils.intentUtils.startLoginActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import com.tu.pmu.the100th.internal.utils.intentUtils.startLoginActivity
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.login100places
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,9 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import org.threeten.bp.chrono.ChronoLocalDate
+import java.time.LocalDate
+import java.util.*
 
 class SignupActivity : AppCompatActivity(), KodeinAware {
     private val TAG = "SignupActivity"
@@ -49,6 +53,30 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
             setViewSignUpValues()
         }
 
+
+
+        signupDateButton.setOnClickListener {
+            val constraintsBuilder = CalendarConstraints.Builder()  // 1
+            val calendar = Calendar.getInstance()
+            constraintsBuilder.setEnd(calendar.timeInMillis)   // 4
+
+            val builder = MaterialDatePicker.Builder.datePicker()
+            builder.setTitleText("Please add your birth date")
+            //builder.setSelection(currentTimeInMillis)
+            builder.setCalendarConstraints(constraintsBuilder.build())
+            val picker = builder.build()
+
+            picker.show(supportFragmentManager, picker.toString())
+            picker.addOnPositiveButtonClickListener {
+                val date = it
+                if ((LongDateUtils.isLongDateBeforeToday(it))) {
+                    signupBirthDate.setText(LongDateUtils.convertLongToTime(date))
+                }else{
+                    signupActivityRoot.snackbar(getString(R.string.error_choose_date_before_today))
+                }
+            }
+        }
+
         signupActivityRoot.setOnTouchListener { v, event ->
             if (currentFocus != null) {
                 hideSoftKeyboard(this)
@@ -57,7 +85,6 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
             false
         }
     }
-
 
 
 //    private fun observe() {
@@ -88,23 +115,23 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
 
         //@todo add input validations
 
-        if (!areFieldsValid(name,lastName,email, password,password1,birthDate)) {
+        if (!areFieldsValid(name, lastName, email, password, password1, birthDate)) {
             return
         }
-        val newUser = SignupUserJsonBody(birthDate,email,name,lastName,nationality,password)
+        val newUser = SignupUserJsonBody(birthDate, email, name, lastName, nationality, password)
 
         GlobalScope.launch(Dispatchers.Main) {
 
             viewModel.userSignup(newUser)
             val await = viewModel.userLastSignupResponse.await()
-            await.observe(this@SignupActivity, Observer { response->
-                if (response == null || response.email != newUser.email){
+            await.observe(this@SignupActivity, Observer { response ->
+                if (response == null || response.email != newUser.email) {
                     signupActivityRoot.snackbar("User registration failed\n User already exist")
                     return@Observer
                 }
                 signupActivityRoot.snackbar("Welcome ${response.firstName} ${response.lastName}")
                 startLoginActivity(this@SignupActivity, email)
-               // finish()
+                // finish()
             })
 //            val userData = viewModel.userData.await()
 //            userData.observe(this@SignupActivity, Observer { user ->
@@ -121,7 +148,6 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
     }
 
 
-
     private fun areFieldsValid(
         name: String,
         lastName: String,
@@ -135,24 +161,26 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
         return isValid // TODO
     }
 
-//    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+    //    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
 //        if (currentFocus != null) {
 //            val imm =  (Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
 //        }
 //        return super.dispatchTouchEvent(ev)
 //    }
-private fun setViewSignUpValues() {
-    signupEmail.setText(getString(R.string.debug_test_user_email_new))
-    signupPassword.setText(getString(R.string.debug_test_user_pass))
-    signupFirstName.setText(getString(R.string.debug_test_user_first_name))
-    signupLastName.setText(getString(R.string.debug_test_user_last_name))
-    signupBirthDate.setText(getString(R.string.debug_test_user_birth_date))
-}
+    private fun setViewSignUpValues() {
+        signupEmail.setText(getString(R.string.debug_test_user_email_new))
+        signupPassword.setText(getString(R.string.debug_test_user_pass))
+        signupFirstName.setText(getString(R.string.debug_test_user_first_name))
+        signupLastName.setText(getString(R.string.debug_test_user_last_name))
+        signupBirthDate.setText(getString(R.string.debug_test_user_birth_date))
+    }
+
     private fun clearViewSignUpValues() {
         signupEmail.setText("")
         signupPassword.setText("")
         signupFirstName.setText("")
         signupLastName.setText("")
-        signupBirthDate.setText("")    }
+        signupBirthDate.setText("")
+    }
 }

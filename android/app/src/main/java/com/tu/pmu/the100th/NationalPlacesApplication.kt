@@ -1,7 +1,9 @@
 package com.tu.pmu.the100th
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Resources
+import com.google.android.gms.location.LocationServices
 import com.tu.pmu.the100th.data.db.PlacesDatabase
 import com.tu.pmu.the100th.data.network.dataSource.AuthLoginNetworkDataSourceImpl
 import com.tu.pmu.the100th.data.network.dataSource.AuthSignupNetworkDataSourceImpl
@@ -9,6 +11,11 @@ import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDa
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthSignupNetworkDataSource
 import com.tu.pmu.the100th.data.network.interceptors.AuthenticationInterceptor
 import com.tu.pmu.the100th.data.network.interceptors.NetworkConnectionInterceptor
+import com.tu.pmu.the100th.data.provider.interfaces.InternetProvider
+import com.tu.pmu.the100th.data.provider.InternetProviderImpl
+import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
+import com.tu.pmu.the100th.data.provider.LocationProviderImpl
+import com.tu.pmu.the100th.data.provider.PreferenceProvider
 import com.tu.pmu.the100th.data.services.PlacesApiService
 import com.tu.pmu.the100th.data.repo.UserRepositoryImpl
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
@@ -26,6 +33,7 @@ import org.kodein.di.generic.singleton
 class NationalPlacesApplication : Application(), KodeinAware {
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@NationalPlacesApplication))
+
         // Database and Dao's
         bind() from singleton { instance<PlacesDatabase>().getUserDao() }
         bind() from singleton { PlacesDatabase(instance()) }
@@ -35,7 +43,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
         bind() from singleton { AuthenticationInterceptor() }
 
         // bind data sources for api service
-        bind() from singleton { PlacesApiService(instance(),instance()) }
+        bind() from singleton { PlacesApiService(instance(), instance()) }
         // bind different data sources for each api service
         bind<AuthLoginNetworkDataSource>() with singleton {
             AuthLoginNetworkDataSourceImpl(
@@ -49,20 +57,31 @@ class NationalPlacesApplication : Application(), KodeinAware {
         }
 
         // bind app repository
-        bind<UserRepository>() with singleton { UserRepositoryImpl(instance(),instance(),instance()) }
+        bind<UserRepository>() with singleton {
+            UserRepositoryImpl(
+                instance(),
+                instance(),
+                instance()
+            )
+        }
 
 
         // bind all providers
-        // bind() from singleton { PreferenceProvider(instance()) }
-        //bind() from singleton { QuotesRepository(instance(), instance(), instance()) }
-
-
+        bind() from singleton { PreferenceProvider(instance()) }
+        // bind() from singleton { QuotesRepository(instance(), instance(), instance()) }
+        bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
+        bind<InternetProvider>() with singleton { InternetProviderImpl(instance()) }
+        //bind location providers
+        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
         //bind all fragment's view models
+
+
         bind() from provider { MapAllPlacesViewModelFactory() }
 
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         //bind() from provider { LoginViewModelFactory()}
+
 
     }
 

@@ -6,7 +6,7 @@
     <fragment android:id="@+id/profileFragment"
         android:name="com.tu.pmu.the100th.ui.fragments.profile.ProfileFragment"
         android:label="Profile" tools:layout="@layout/profile_fragment"/>
-<!--    <fragment android:id="@+id/quotesFragment"-->
-<!--        android:name="net.simplifiedcoding.mvvmsampleapp.ui.home.quotes.QuotesFragment"-->
-<!--        android:label="Quotes" tools:layout="@layout/quotes_fragment"/>-->
+    <fragment android:id="@+id/allPlacesFragment"
+        android:name="com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragment"
+        android:label="All Places" tools:layout="@layout/fragment_all_places_map"/>
 </navigation>

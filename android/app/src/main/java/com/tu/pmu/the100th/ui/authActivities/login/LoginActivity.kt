@@ -16,7 +16,7 @@ import com.tu.pmu.the100th.internal.utils.snackbar
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModel
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.ui.authActivities.signUp.SignupActivity
-import com.tu.pmu.the100th.ui.uiUtils.intentUtils.startMainActivity
+import com.tu.pmu.the100th.internal.utils.intentUtils.startMainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

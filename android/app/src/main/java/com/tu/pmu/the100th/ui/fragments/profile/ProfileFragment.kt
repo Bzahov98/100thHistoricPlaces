@@ -1,6 +1,5 @@
 package com.tu.pmu.the100th.ui.fragments.profile
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.entities.auth.UserStatusEnum
 import com.tu.pmu.the100th.databinding.ProfileFragmentBinding
-import com.tu.pmu.the100th.ui.uiUtils.intentUtils.startLoginActivity
+import com.tu.pmu.the100th.internal.utils.intentUtils.startLoginActivity
 import kotlinx.android.synthetic.main.profile_fragment.*
 import org.kodein.di.android.x.kodein
 import org.kodein.di.KodeinAware
