@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/root_layout"
+        android:id="@+id/loginActivityRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E2E2E2"
@@ -41,6 +41,7 @@
                     app:fontFamily="cursive" />
 
                 <TextView
+                    android:id="@+id/login100places"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -69,9 +70,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_email"
+                    android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="16dp"
-                    android:hint="belal@gmail.com"
+                    android:hint="@string/example_email_com"
                     android:inputType="textEmailAddress"
                     android:padding="12dp" />
 
@@ -81,9 +82,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/edit_text_round_gray_background"
-                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="16dp"
-                    android:hint="password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="12dp" />
 
@@ -92,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="Forget Password?"
+                    android:text="@string/forget_password"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimaryDark" />
 
@@ -101,7 +102,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Sign In"
+                    android:text="@string/sign_in"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -113,7 +114,7 @@
                 android:layout_below="@id/linearLayout2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="Don't have an account?\nSign Up Here"
+                android:text="@string/login_dont_have_acc"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorPrimary" />

@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         android:name=".NationalPlacesApplication">
         <activity
-            android:name=".ui.AuthActivities.login.LoginActivity"
+            android:name=".ui.authActivities.login.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AuthActivities.signUp.SignupActivity"
+            android:name=".ui.authActivities.signUp.SignupActivity"
             android:label="@string/title_activity_signup" />
         <activity android:name=".ui.MainActivity.MainActivity">
 

@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.AuthActivities
+package com.tu.pmu.the100th.ui.authActivities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

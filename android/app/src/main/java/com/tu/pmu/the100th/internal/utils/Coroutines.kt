@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.internal.glide.utils
+package com.tu.pmu.the100th.internal.utils
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

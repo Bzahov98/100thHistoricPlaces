@@ -7,7 +7,9 @@ import com.tu.pmu.the100th.data.db.entities.auth.User
 
 @Database(
     entities = [User::class],
-    version = 3
+    version = 4,
+    exportSchema = false
+
 )
 @TypeConverters(EnumConverters::class)
 abstract class PlacesDatabase : RoomDatabase() {
