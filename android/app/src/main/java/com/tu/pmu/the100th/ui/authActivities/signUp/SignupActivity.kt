@@ -1,21 +1,20 @@
-package com.tu.pmu.the100th.ui.AuthActivities.signUp
+package com.tu.pmu.the100th.ui.authActivities.signUp
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.tu.pmu.the100th.R
-import com.tu.pmu.the100th.data.db.entities.auth.User
 import com.tu.pmu.the100th.databinding.ActivitySignupBinding
-import com.tu.pmu.the100th.internal.glide.utils.ApiException
-import com.tu.pmu.the100th.internal.glide.utils.NoInternetException
-import com.tu.pmu.the100th.internal.glide.utils.snackbar
-import com.tu.pmu.the100th.ui.MainActivity.MainActivity
-import com.tu.pmu.the100th.ui.AuthActivities.AuthViewModel
-import com.tu.pmu.the100th.ui.AuthActivities.AuthViewModelFactory
+import com.tu.pmu.the100th.internal.utils.ApiException
+import com.tu.pmu.the100th.internal.utils.NoInternetException
+import com.tu.pmu.the100th.internal.utils.snackbar
+import com.tu.pmu.the100th.ui.authActivities.AuthViewModel
+import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.ui.uiUtils.intentUtils.startMainActivity
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -86,4 +85,12 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
             }
         }
     }
+
+//    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+//        if (currentFocus != null) {
+//            val imm =  (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+//        }
+//        return super.dispatchTouchEvent(ev)
+//    }
 }

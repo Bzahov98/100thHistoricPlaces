@@ -1,9 +1,9 @@
-package com.tu.pmu.the100th.data.network
+package com.tu.pmu.the100th.data.network.interceptors
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.tu.pmu.the100th.internal.glide.utils.NoInternetException
+import com.tu.pmu.the100th.internal.utils.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 

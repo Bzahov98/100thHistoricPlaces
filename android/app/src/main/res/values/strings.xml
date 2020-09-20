@@ -16,7 +16,6 @@
     <string name="_100th_national_places">100th National Places</string>
     <string name="_100th_bg_places">100th BG Places</string>
     <string name="title_activity_signup">SignUp</string>
-    <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="example_email_com">example@email.com</string>
     <string name="last_name">Last name</string>
@@ -24,4 +23,9 @@
     <string name="forget_password">Forget Password?</string>
     <string name="date_hint">12/12/2012</string>
     <string name="log_out">Log out</string>
+    <string name="password">@string/prompt_password</string>
+    <string name="login_dont_have_acc">Don\'t have an account?\nSign Up Here</string>
+    <string name="sign_in">Sign In</string>
+    <string name="debug_test_user_email">sadss@asd.com</string>
+    <string name="debug_test_user_pass">12345678</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.data.network
+package com.tu.pmu.the100th.data.network.interceptors
 
 import android.util.Log
 import okhttp3.Interceptor

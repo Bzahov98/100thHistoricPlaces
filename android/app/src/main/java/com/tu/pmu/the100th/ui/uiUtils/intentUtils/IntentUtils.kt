@@ -3,7 +3,7 @@ package com.tu.pmu.the100th.ui.uiUtils.intentUtils
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
-import com.tu.pmu.the100th.ui.AuthActivities.login.LoginActivity
+import com.tu.pmu.the100th.ui.authActivities.login.LoginActivity
 import com.tu.pmu.the100th.ui.MainActivity.MainActivity
 
 fun startMainActivity(context: Context) {
