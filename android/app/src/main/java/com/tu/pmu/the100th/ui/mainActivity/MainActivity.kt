@@ -23,7 +23,7 @@ import org.kodein.di.android.closestKodein
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-private const val MY_PERMISSION_ACCESS_COARSE_LOCATION = 1
+const val MY_PERMISSION_ACCESS_COARSE_LOCATION = 1
 
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()

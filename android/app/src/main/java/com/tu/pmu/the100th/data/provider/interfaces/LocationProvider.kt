@@ -1,8 +1,11 @@
 package com.tu.pmu.the100th.data.provider.interfaces
 
 import android.location.Location
+import com.google.android.gms.maps.model.LatLng
 
 interface LocationProvider {
+    val TAG: String
+        get() = "LocationProvider"
 
     fun isLocationEnabled(): Boolean
 

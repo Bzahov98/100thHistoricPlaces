@@ -4,15 +4,21 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.model.LatLng
 import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
+import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider.Companion.TAG
 import com.tu.pmu.the100th.internal.utils.LocationPermissionNotGrantedException
 import com.tu.pmu.the100th.internal.utils.asDeferred
+import java.io.IOException
 import java.lang.Math.abs
 
 class LocationProviderImpl(
@@ -26,12 +32,11 @@ class LocationProviderImpl(
 //    }
 
     override suspend fun hasLocationChanged(lastLocation: Location): Boolean {
-        val deviceLocationChanged = try {
+        return try {
             hasDeviceLocationChanged(lastLocation)
         } catch (e: LocationPermissionNotGrantedException) {
             false
-        }
-        return deviceLocationChanged //|| hasCustomLocationChanged(lastWeatherLocation)
+        } //|| hasCustomLocationChanged(lastWeatherLocation)
     }
 
     // default is false for WeatherStack api and true for OpenWeather api

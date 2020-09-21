@@ -20,6 +20,7 @@ import com.tu.pmu.the100th.data.services.PlacesApiService
 import com.tu.pmu.the100th.data.repo.UserRepositoryImpl
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
+import com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragmentViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.profile.ProfileViewModelFactory
 import com.tu.pmu.the100th.ui.mapAllPlaces.MapAllPlacesViewModelFactory
 import org.kodein.di.Kodein
@@ -80,6 +81,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
 
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
+        bind() from provider { AllPlacesMapFragmentViewModelFactory(instance(),instance(),instance()) }
         //bind() from provider { LoginViewModelFactory()}
 
 

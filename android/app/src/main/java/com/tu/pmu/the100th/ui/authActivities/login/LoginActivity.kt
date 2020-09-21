@@ -107,12 +107,12 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             clearInputData()
             return false
         }
-        if (!ValidationUtils.isValidPassword(password)) {
-            loginActivityRoot.snackbar("Password is in invalid format")
-            clearInputData()
-            loginPassword.error = "Email address is invalid"
-            return false
-        }
+//        if (!ValidationUtils.isValidPassword(password)) {
+//            loginActivityRoot.snackbar("Password is in invalid format")
+//            clearInputData()
+//            loginPassword.error = "Email address is invalid"
+//            return false
+//        }
         return true
     }
 

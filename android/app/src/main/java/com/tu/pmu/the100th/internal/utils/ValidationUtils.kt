@@ -20,6 +20,7 @@ class ValidationUtils {
         fun isValidName(name: String): Boolean {
             return testRegx(nameRegex,name)
         }
+
         fun isValidDate(date: String): Boolean {
             return testRegx(dateRegex,date)
         }
