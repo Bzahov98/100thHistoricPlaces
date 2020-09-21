@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthSignupNetworkDataSource
 import com.tu.pmu.the100th.data.network.responces.AuthSignUpResponse
-import com.tu.pmu.the100th.data.services.PlacesApiService
+import com.tu.pmu.the100th.data.services.AuthApiService
 import com.tu.pmu.the100th.internal.utils.NoInternetException
 import retrofit2.HttpException
 
-class AuthSignupNetworkDataSourceImpl(private val placesApiService: PlacesApiService) :
+class AuthSignupNetworkDataSourceImpl(private val authApiService: AuthApiService) :
     AuthSignupNetworkDataSource {
 
     private val TAG = "AuthSignupNetworkDataSource"
@@ -20,7 +20,7 @@ class AuthSignupNetworkDataSourceImpl(private val placesApiService: PlacesApiSer
 
     override suspend fun fetchSignUpResponse(body: String) {
         try {
-            val fetchedAuth = placesApiService
+            val fetchedAuth = authApiService
                 .userSignupAsync(body)
                 .await()
             downloadedAuthDataMutable.postValue(fetchedAuth)
@@ -38,7 +38,7 @@ class AuthSignupNetworkDataSourceImpl(private val placesApiService: PlacesApiSer
 
     override suspend fun fetchSignUpResponse(userJsonBody: SignupUserJsonBody) {
         try {
-            val fetchedAuth = placesApiService
+            val fetchedAuth = authApiService
                 .userSignupAsync(SignupUserJsonBody.toJson(userJsonBody))
                 .await()
             downloadedAuthDataMutable.postValue(fetchedAuth)

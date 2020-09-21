@@ -3,14 +3,13 @@ package com.tu.pmu.the100th.data.network.dataSource
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDataSource
 import com.tu.pmu.the100th.data.network.responces.AuthLoginResponse
-import com.tu.pmu.the100th.data.services.PlacesApiService
+import com.tu.pmu.the100th.data.services.AuthApiService
 import com.tu.pmu.the100th.internal.utils.NoInternetException
 import retrofit2.HttpException
 
-class AuthLoginNetworkDataSourceImpl(private val placesApiService: PlacesApiService) :
+class AuthLoginNetworkDataSourceImpl(private val authApiService: AuthApiService) :
     AuthLoginNetworkDataSource {
     private val TAG = "AuthLoginNetworkDataSource"
     private val downloadedAuthDataMutable = MutableLiveData<AuthLoginResponse>()
@@ -20,7 +19,7 @@ class AuthLoginNetworkDataSourceImpl(private val placesApiService: PlacesApiServ
 
     override suspend fun fetchLoginResponse(email: String, password: String) {
         try {
-            val fetchedAuth = placesApiService
+            val fetchedAuth = authApiService
                 .userLoginAsync(email, password)
                 .await()
             downloadedAuthDataMutable.postValue(fetchedAuth)

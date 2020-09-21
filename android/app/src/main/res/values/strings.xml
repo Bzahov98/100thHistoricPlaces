@@ -38,5 +38,7 @@
     <string name="permission_rationale_location">permission_rationale_location</string>
     <string name="permission_required_toast">permission_required_toast</string>
     <string name="location_permission_denied">Location permission denied</string>
+    <string name="default_access_token" />
+    <string name="preferences_key_access_token">access_token</string>
 
 </resources>

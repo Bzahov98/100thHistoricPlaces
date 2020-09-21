@@ -9,16 +9,17 @@ import com.tu.pmu.the100th.data.network.dataSource.AuthLoginNetworkDataSourceImp
 import com.tu.pmu.the100th.data.network.dataSource.AuthSignupNetworkDataSourceImpl
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDataSource
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthSignupNetworkDataSource
-import com.tu.pmu.the100th.data.network.interceptors.AuthenticationInterceptor
+import com.tu.pmu.the100th.data.network.interceptors.BasicAuthenticationInterceptor
 import com.tu.pmu.the100th.data.network.interceptors.NetworkConnectionInterceptor
 import com.tu.pmu.the100th.data.provider.interfaces.InternetProvider
 import com.tu.pmu.the100th.data.provider.InternetProviderImpl
 import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
 import com.tu.pmu.the100th.data.provider.LocationProviderImpl
 import com.tu.pmu.the100th.data.provider.PreferenceProvider
-import com.tu.pmu.the100th.data.services.PlacesApiService
+import com.tu.pmu.the100th.data.services.AuthApiService
 import com.tu.pmu.the100th.data.repo.UserRepositoryImpl
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
+import com.tu.pmu.the100th.data.services.PlacesApiService
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragmentViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.profile.ProfileViewModelFactory
@@ -41,9 +42,10 @@ class NationalPlacesApplication : Application(), KodeinAware {
 
         // Network Interceptors
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
-        bind() from singleton { AuthenticationInterceptor() }
+        bind() from singleton { BasicAuthenticationInterceptor() }
 
         // bind data sources for api service
+        bind() from singleton { AuthApiService(instance(), instance()) }
         bind() from singleton { PlacesApiService(instance(), instance()) }
         // bind different data sources for each api service
         bind<AuthLoginNetworkDataSource>() with singleton {
@@ -60,6 +62,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
         // bind app repository
         bind<UserRepository>() with singleton {
             UserRepositoryImpl(
+                instance(),
                 instance(),
                 instance(),
                 instance()

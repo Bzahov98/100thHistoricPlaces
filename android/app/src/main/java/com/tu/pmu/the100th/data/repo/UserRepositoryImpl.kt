@@ -3,6 +3,8 @@ package com.tu.pmu.the100th.data.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tu.pmu.the100th.NationalPlacesApplication.Companion.getAppString
+import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.dao.AuthDao
 import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.db.entities.auth.User
@@ -12,6 +14,7 @@ import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthSignupNetworkD
 import com.tu.pmu.the100th.data.network.responces.AuthLoginResponse
 import com.tu.pmu.the100th.data.network.responces.AuthResponse
 import com.tu.pmu.the100th.data.network.responces.AuthSignUpResponse
+import com.tu.pmu.the100th.data.provider.PreferenceProvider
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +24,8 @@ import kotlinx.coroutines.withContext
 class UserRepositoryImpl(
     val userDao: AuthDao,
     private val loginDataSource: AuthLoginNetworkDataSource,
-    private val signUpDataSource: AuthSignupNetworkDataSource
+    private val signUpDataSource: AuthSignupNetworkDataSource,
+    private val preferenceProvider: PreferenceProvider
 ) : UserRepository {
     private val TAG = "UserRepository"
     var savedUser: MutableLiveData<User> = MutableLiveData()
@@ -40,7 +44,7 @@ class UserRepositoryImpl(
             if (it != null) {
                 Log.d(
                     TAG,
-                    "persistFetchedLoginCreditentals: authResponse is ${it.toString()} ${it.email}"
+                    "persistFetchedLoginCreditentals: authResponse is $it ${it.email}"
                 )
                 saveUser(User.parseAuthLoginResponse(it))
             } else Log.e(TAG, "persistFetchedLoginCreditentals: authResponse is null")
@@ -78,31 +82,21 @@ class UserRepositoryImpl(
         )
     }
 
-//    override suspend fun userSignup(name: String, email: String, password: String): AuthResponse {
-//        // TODO fetch data from api
-//        Log.d("UserRepositoryImpl", " userSignup TEST IS OK")
-//        return AuthResponse(
-//            true,
-//            "TEST",
-//            User(UserStatusEnum.LoggedOut, name, email, password, "test", "test", "test")
-//        )
-//    }
-
-    // TODO put it in DB
     override suspend fun saveUser(user: User): Long {
-        Log.d("UserRepositoryImpl", "saveUser TEST IS OK")
+//        Log.d("UserRepositoryImpl", "saveUser TEST IS OK")
         user.userStatus = UserStatusEnum.LoggedIn
         savedUser.postValue(user)
+        preferenceProvider.saveAccessToken(user)
         return userDao.upsert(user)
     }
 
     override fun getLoggedInUser(): LiveData<User> {
-        Log.d("UserRepositoryImpl", "getUser TEST IS OK")
+//        Log.d("UserRepositoryImpl", "getUser TEST IS OK")
         return userDao.getCurrentUser()
     }
 
     override fun getLastSignUpResponse(): LiveData<AuthSignUpResponse> {
-        Log.d("UserRepositoryImpl", "getUser TEST IS OK")
+//        Log.d("UserRepositoryImpl", "getUser TEST IS OK")
         return signUpDataSource.downloadedAuthData
     }
 
