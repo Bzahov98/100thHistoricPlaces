@@ -12,4 +12,28 @@
     <string name="map_all_places_fragment">AllPlaces</string>
     <string name="menu_name_map_all_places">All places</string>
     <string name="menu_name_user_profile">My profile</string>
+    <string name="places_api_url">https://api.100national.com/</string>
+    <string name="_100th_national_places">100th National Places</string>
+    <string name="_100th_bg_places">100th BG Places</string>
+    <string name="title_activity_signup">SignUp</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="example_email_com">example@email.com</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="date_hint">12/12/2012</string>
+    <string name="log_out">Log out</string>
+    <string name="password">@string/prompt_password</string>
+    <string name="login_dont_have_acc">Don\'t have an account?\nSign Up Here</string>
+    <string name="sign_in">Sign In</string>
+    <string name="debug_test_user_email">sadss@asd.com</string>
+    <string name="debug_test_user_email_new" >sadss1@asd.com</string>
+    <string name="debug_test_user_pass">12345678</string>
+    <string name="debug_test_user_first_name">Bojo</string>
+    <string name="debug_test_user_last_name">Petio</string>
+    <string name="debug_test_user_birth_date">11/09/2011</string>
+    <string name="pick_date">pick Date</string>
+    <string name="error_choose_date_before_today">Please choose date before today</string>
+    <string name="default_location">Sofia</string>
+
 </resources>
