@@ -1,5 +1,6 @@
 package com.pmu.data.model.places;
 
+import com.pmu.util.DistanceUtil;
 import com.pmu.util.LatLngConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,5 +34,9 @@ public class Place {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "place")
     private List<UserDetailPlaceAssignment> checkedUsers;
+
+    public Double getDistance(LatLng latLng) {
+        return DistanceUtil.calculateDistance(this.latLng, latLng);
+    }
 
 }

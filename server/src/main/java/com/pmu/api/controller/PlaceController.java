@@ -12,6 +12,7 @@ import com.pmu.data.model.users.UserDetail;
 import com.pmu.mapping.ModelMapper;
 import com.pmu.service.places.PlaceService;
 import com.pmu.service.users.UserService;
+import com.pmu.util.DistanceUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -35,10 +39,17 @@ public class PlaceController {
     @GetMapping("/places")
     @ApiOperation("Find all places by filter.")
     public Page<ApiPlaceResponse> findAll(ApiPlaceFilter filter, Pageable pageable) {
-        return placeService.findAll(filter, pageable)
+        LatLng latLng = null;
+        if (Objects.nonNull(filter.getLatitude()) && Objects.nonNull(filter.getLongitude()))
+            latLng = new LatLng(filter.getLongitude(), filter.getLatitude());
+
+
+        LatLng finalLatLng = latLng;
+        return placeService.findAll(filter, latLng, pageable)
                 .map(place -> {
                     ApiPlaceResponse response = modelMapper.map(place, ApiPlaceResponse.class);
                     response.setChecked(place.getCheckedUsers().stream().map(UserDetailPlaceAssignment::getUserDetail).map(UserDetail::getId).anyMatch(uuid -> uuid.equals(ContextHolder.get().getUserId())));
+                    response.setDistance(Objects.isNull(finalLatLng) ? null : BigDecimal.valueOf(DistanceUtil.calculateDistance(place.getLatLng(), finalLatLng)).setScale(2, RoundingMode.HALF_DOWN));
                     return response;
                 });
     }

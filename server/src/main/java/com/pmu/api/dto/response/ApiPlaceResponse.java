@@ -3,6 +3,7 @@ package com.pmu.api.dto.response;
 import com.pmu.data.model.places.LatLng;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -16,4 +17,6 @@ public class ApiPlaceResponse {
     private LatLng latLng;
 
     private Boolean checked;
+
+    private BigDecimal distance;
 }
