@@ -6,12 +6,14 @@ import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,12 +27,28 @@ import com.tu.pmu.the100th.internal.utils.LocationUtils.Companion.putMarkerOnMap
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.isPermissionGranted
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.requestPermission
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
 class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener,
-    ActivityCompat.OnRequestPermissionsResultCallback {
+    ActivityCompat.OnRequestPermissionsResultCallback, KodeinAware {
+    private val TAG = "AllPlacesMapFragment"
+    override val kodein by kodein()
+    private val factory: AllPlacesMapFragmentViewModelFactory by instance<AllPlacesMapFragmentViewModelFactory>()
     private var permissionDenied = false
     private lateinit var map: GoogleMap
+    private lateinit var viewModel: AllPlacesMapFragmentViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, factory).get(AllPlacesMapFragmentViewModel::class.java)
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -43,10 +61,43 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
          * user has installed Google Play services and returned to the app.
          */
         map = googleMap ?: return@OnMapReadyCallback
-
         setupMap()
-
         enableMyLocation()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_all_places_map, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.allPlacesFragmentMap) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getAllPlacesRequest(
+                LatLng(
+                    23.3888135,
+                    42.8987653
+                )
+            )
+//            val bla = viewModel.allPlaces2
+//            Log.e(TAG, "bla: ${bla.last().description}")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError()
+            permissionDenied = false
+        }
     }
 
     private fun setupMap() {
@@ -71,28 +122,15 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
             )
             poiMarker.showInfoWindow()
         }
-
-        putMarkerOnMap(map,bulgaria,"bla bla")
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_all_places_map, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.allPlacesFragmentMap) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        putMarkerOnMap(map, bulgaria, "bla bla")
     }
 
     private fun enableMyLocation() {
         if (!::map.isInitialized) return
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             == PackageManager.PERMISSION_GRANTED
         ) {
             map.isMyLocationEnabled = true
@@ -138,15 +176,6 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
             // Permission was denied. Display an error message
             // Display the missing permission error dialog when the fragments resume.
             permissionDenied = true
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (permissionDenied) {
-            // Permission was not granted, display error dialog.
-            showMissingPermissionError()
-            permissionDenied = false
         }
     }
 

@@ -7,17 +7,22 @@ import com.google.android.gms.location.LocationServices
 import com.tu.pmu.the100th.data.db.PlacesDatabase
 import com.tu.pmu.the100th.data.network.dataSource.AuthLoginNetworkDataSourceImpl
 import com.tu.pmu.the100th.data.network.dataSource.AuthSignupNetworkDataSourceImpl
+import com.tu.pmu.the100th.data.network.dataSource.GetAllPlacesNetworkDataSourceImpl
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDataSource
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthSignupNetworkDataSource
+import com.tu.pmu.the100th.data.network.dataSource.interfaces.GetAllPlacesNetworkDataSource
 import com.tu.pmu.the100th.data.network.interceptors.BasicAuthenticationInterceptor
 import com.tu.pmu.the100th.data.network.interceptors.NetworkConnectionInterceptor
+import com.tu.pmu.the100th.data.network.interceptors.TokenAuthenticationInterceptor
 import com.tu.pmu.the100th.data.provider.interfaces.InternetProvider
 import com.tu.pmu.the100th.data.provider.InternetProviderImpl
 import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
 import com.tu.pmu.the100th.data.provider.LocationProviderImpl
 import com.tu.pmu.the100th.data.provider.PreferenceProvider
+import com.tu.pmu.the100th.data.repo.AllPlacesRepositoryImpl
 import com.tu.pmu.the100th.data.services.AuthApiService
 import com.tu.pmu.the100th.data.repo.UserRepositoryImpl
+import com.tu.pmu.the100th.data.repo.interfaces.AllPlacesRepository
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
 import com.tu.pmu.the100th.data.services.PlacesApiService
 import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
@@ -43,10 +48,12 @@ class NationalPlacesApplication : Application(), KodeinAware {
         // Network Interceptors
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { BasicAuthenticationInterceptor() }
+        bind() from singleton { TokenAuthenticationInterceptor(instance()) }
 
-        // bind data sources for api service
+        // bind all api services
         bind() from singleton { AuthApiService(instance(), instance()) }
         bind() from singleton { PlacesApiService(instance(), instance()) }
+
         // bind different data sources for each api service
         bind<AuthLoginNetworkDataSource>() with singleton {
             AuthLoginNetworkDataSourceImpl(
@@ -55,6 +62,11 @@ class NationalPlacesApplication : Application(), KodeinAware {
         }
         bind<AuthSignupNetworkDataSource>() with singleton {
             AuthSignupNetworkDataSourceImpl(
+                instance()
+            )
+        }
+        bind<GetAllPlacesNetworkDataSource>() with singleton {
+            GetAllPlacesNetworkDataSourceImpl(
                 instance()
             )
         }
@@ -68,23 +80,29 @@ class NationalPlacesApplication : Application(), KodeinAware {
                 instance()
             )
         }
+        bind<AllPlacesRepository>() with singleton {
+            AllPlacesRepositoryImpl(
+                instance(),
+                instance()/*,
+                instance(),
+                instance()*/
+            )
+        }
 
 
         // bind all providers
         bind() from singleton { PreferenceProvider(instance()) }
-        // bind() from singleton { QuotesRepository(instance(), instance(), instance()) }
         bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
         bind<InternetProvider>() with singleton { InternetProviderImpl(instance()) }
         //bind location providers
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
+
         //bind all fragment's view models
 
-
         bind() from provider { MapAllPlacesViewModelFactory() }
-
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
-        bind() from provider { AllPlacesMapFragmentViewModelFactory(instance(),instance(),instance()) }
+        bind() from provider { AllPlacesMapFragmentViewModelFactory(instance(),instance(),instance(),instance()) }
         //bind() from provider { LoginViewModelFactory()}
 
 
