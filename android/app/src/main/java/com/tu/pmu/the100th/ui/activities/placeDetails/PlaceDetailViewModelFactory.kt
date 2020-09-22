@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.mainActivity
+package com.tu.pmu.the100th.ui.activities.placeDetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

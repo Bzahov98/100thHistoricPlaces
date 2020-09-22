@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.authActivities.login
+package com.tu.pmu.the100th.ui.activities.authActivities.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,10 +13,11 @@ import com.tu.pmu.the100th.databinding.ActivityLoginBinding
 import com.tu.pmu.the100th.internal.utils.ValidationUtils
 import com.tu.pmu.the100th.internal.utils.hideSoftKeyboard
 import com.tu.pmu.the100th.internal.utils.snackbar
-import com.tu.pmu.the100th.ui.authActivities.AuthViewModel
-import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
-import com.tu.pmu.the100th.ui.authActivities.signUp.SignupActivity
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModel
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModelFactory
+import com.tu.pmu.the100th.ui.activities.authActivities.signUp.SignupActivity
 import com.tu.pmu.the100th.internal.utils.intentUtils.startMainActivity
+import com.tu.pmu.the100th.internal.utils.toast
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +40,11 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+        GlobalScope.launch {
+           if( viewModel.checkCurrentTokenIsValid()){
+               startMainActivity(this@LoginActivity)
+           }
+        }
 
         binding.buttonSignIn.setOnClickListener {
             loginUser()

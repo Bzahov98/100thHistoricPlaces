@@ -85,6 +85,12 @@ class UserRepositoryImpl(
         )
     }
 
+    override suspend fun checkIsValidToken() : Boolean {
+        return signUpDataSource.fetchTokenResponse(
+            preferenceProvider.getAccessToken()
+        )
+    }
+
     override suspend fun saveUser(user: User): Long {
 //        Log.d("UserRepositoryImpl", "saveUser TEST IS OK")
         user.userStatus = UserStatusEnum.LoggedIn
@@ -109,6 +115,7 @@ class UserRepositoryImpl(
     override suspend fun logout() {
         val user = User.loggedOutUser()
         userDao.upsert(user)
+        preferenceProvider.saveLoggedOutAccessToken()
         savedUser.postValue(user)
     }
 

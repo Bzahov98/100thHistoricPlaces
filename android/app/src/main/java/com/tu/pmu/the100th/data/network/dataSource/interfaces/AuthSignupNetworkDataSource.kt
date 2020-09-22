@@ -12,4 +12,5 @@ interface AuthSignupNetworkDataSource {
     )
 
     suspend fun fetchSignUpResponse(userJsonBody: SignupUserJsonBody)
+    suspend fun fetchTokenResponse(accessToken: String) : Boolean
 }

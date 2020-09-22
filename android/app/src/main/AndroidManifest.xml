@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.mainActivity.PlaceDetailActivity"></activity>
+        <activity android:name="com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -31,7 +31,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.authActivities.login.LoginActivity"
+            android:name="com.tu.pmu.the100th.ui.activities.authActivities.login.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,9 +40,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.authActivities.signUp.SignupActivity"
+            android:name="com.tu.pmu.the100th.ui.activities.authActivities.signUp.SignupActivity"
             android:label="@string/title_activity_signup" />
-        <activity android:name=".ui.mainActivity.MainActivity" />
+        <activity android:name="com.tu.pmu.the100th.ui.activities.mainActivity.MainActivity" />
     </application>
 
 </manifest>

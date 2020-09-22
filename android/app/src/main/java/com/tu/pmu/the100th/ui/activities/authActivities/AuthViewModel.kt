@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.authActivities
+package com.tu.pmu.the100th.ui.activities.authActivities
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -38,6 +38,10 @@ class AuthViewModel(
     suspend fun userSignup(
         newUser: SignupUserJsonBody
     ) = withContext(Dispatchers.IO) { repository.userSignup(newUser) }
+
+    suspend fun checkCurrentTokenIsValid(): Boolean{
+        return withContext(Dispatchers.IO){ return@withContext repository.checkIsValidToken() }
+    }
 
     suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
 

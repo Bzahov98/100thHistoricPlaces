@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.tu.pmu.the100th.ui.mainActivity.PlaceDetailViewModel" />
+            type="com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.mainActivity.PlaceDetailActivity">
+        tools:context=".ui.activities.placeDetails.PlaceDetailActivity">
 
         <TextView
             android:id="@+id/txv_name"

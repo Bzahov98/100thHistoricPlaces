@@ -3,10 +3,14 @@ package com.tu.pmu.the100th.ui.fragments.allPlacesList
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -14,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tu.pmu.the100th.R
-import com.tu.pmu.the100th.data.network.responces.getAllPlaces.Content
 import com.tu.pmu.the100th.internal.utils.PermissionUtils
-import com.tu.pmu.the100th.ui.base.ScopedFragment
+import com.tu.pmu.the100th.internal.utils.intentUtils.startPlaceDetailActivity
+import com.tu.pmu.the100th.ui.fragments.base.ScopedFragment
 import com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragment
 import com.tu.pmu.the100th.ui.fragments.allPlacesList.recyclerview.PlacesListItem
 import com.xwray.groupie.GroupAdapter
@@ -25,7 +29,6 @@ import kotlinx.android.synthetic.main.fragment_all_places_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -58,26 +61,72 @@ class AllPlacesListFragment : ScopedFragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         //updateRecyclerViewData()
-        GlobalScope.launch(Dispatchers.Main) {
-            viewModel.getAllPlacesRequest(
-                viewModel.getLastLocationLatLng()
-            )
+        //getAndShowAllPlaces()
+
+        placesSearchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                clearUpdateRecyclerViewData(null)
+                getAndShowAllPlacesBySearchName()
+                true
+            } else {
+                false
+            }
         }
-        var listItem = ArrayList<PlacesListItem>()
+    }
+
+    private fun getAndShowAllPlaces() {
+//        searchFolAllPlaces()
+//        updateReceivedData()
+    }
+
+    private fun getAndShowAllPlacesBySearchName() {
+        searchFolAllPlacesBySearch()
+        updateReceivedData()
+    }
+
+    private fun updateReceivedData() {
+
+        val listItem = HashSet<PlacesListItem>()
         viewModel.placesEvent.observe(
             viewLifecycleOwner,
             Observer { t ->
                 run {
+                    listItem.clear()
                     t.content.forEach(Consumer { place ->
                         listItem.add(PlacesListItem(place))
                     })
-                    updateRecyclerViewData(listItem)
+                    clearUpdateRecyclerViewData(listItem)
                 }
             })
     }
 
+//    private fun searchFolAllPlaces() {
+//        clearUpdateRecyclerViewData(null)
+//        GlobalScope.launch(Dispatchers.Main) {
+//            viewModel.getAllPlacesRequest(
+//                viewModel.getLastLocationLatLng()
+//            )
+//        }
+//    }
+
+    private fun searchFolAllPlacesBySearch() {
+        clearUpdateRecyclerViewData(null)
+        placesSearchEditText.isEnabled = false
+
+        val placeName = placesSearchEditText.text.trim().toString()
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getAllPlacesRequestByName(
+                placeName,
+                viewModel.getLastLocationLatLng()
+            )
+        }.invokeOnCompletion {
+            placesSearchEditText.isEnabled = true
+        }
+    }
+
     override fun onResume() {
         super.onResume()
+        clearUpdateRecyclerViewData(null)
         if (permissionDenied) {
             // Permission was not granted, display error dialog.
             showMissingPermissionError()
@@ -93,21 +142,24 @@ class AllPlacesListFragment : ScopedFragment(), KodeinAware {
         }
 
         groupAdapter.setOnItemClickListener { item, view ->
+            val itemDetail = (item as PlacesListItem).data
             Toast.makeText(
                 this@AllPlacesListFragment.context,
-                "Clicked: ${item.itemCount}",
+                "Clicked: ${itemDetail.name}",
                 Toast.LENGTH_SHORT
             ).show()
+            startPlaceDetailActivity(requireContext(), itemDetail.id)
 
-            val itemDetail = (item as PlacesListItem).data
             Log.e(TAG, "\n\nGroupAdapter.setOnItemClickListener ${itemDetail}\n")
             //showWeatherDetail(itemDetail.dtTxt, view)
         }
     }
 
-    private fun updateRecyclerViewData(items: List<PlacesListItem>) {
+    private fun clearUpdateRecyclerViewData(items: Set<PlacesListItem>?) { // null only to clear data
         groupAdapter.clear()
-        groupAdapter.apply { addAll(items) }
+        if (!items.isNullOrEmpty()) {
+            groupAdapter.apply { addAll(items) }
+        }
         groupAdapter.notifyDataSetChanged()
     }
 
@@ -118,7 +170,7 @@ class AllPlacesListFragment : ScopedFragment(), KodeinAware {
             )
             == PackageManager.PERMISSION_GRANTED
         ) {
-            Log.d(TAG, "enableMyLocation: have permission")
+            Log.d(TAG, "checkPermission: have permission")
 
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -158,7 +210,3 @@ class AllPlacesListFragment : ScopedFragment(), KodeinAware {
     }
 
 }
-
-//private fun <VH : ViewHolder?> GroupAdapter<VH>.addAll(items: List<Content>) {
-//   items.forEach { content: Content -> this.add(this.getg) }
-//}

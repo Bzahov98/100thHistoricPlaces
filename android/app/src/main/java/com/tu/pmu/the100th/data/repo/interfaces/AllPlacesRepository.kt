@@ -14,7 +14,7 @@ interface AllPlacesRepository {
     var placeByIdEvent: MutableLiveData<PlaceDTO>
     val errorEvent: LiveData<String>
 
-    suspend fun getAllPlacesByName(placeName: String)
+    suspend fun getAllPlacesByName(placeName: String, latLng: LatLng)
     suspend fun getAllPlacesByLatLng(latLng: LatLng)
     suspend fun check(id: String, position: LatLng)
 

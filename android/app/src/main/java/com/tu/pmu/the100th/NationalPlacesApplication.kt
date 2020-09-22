@@ -25,11 +25,11 @@ import com.tu.pmu.the100th.data.repo.UserRepositoryImpl
 import com.tu.pmu.the100th.data.repo.interfaces.AllPlacesRepository
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
 import com.tu.pmu.the100th.data.services.PlacesApiService
-import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragmentViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.allPlacesList.AllPlacesListFragmentViewModelFactory
 import com.tu.pmu.the100th.ui.fragments.profile.ProfileViewModelFactory
-import com.tu.pmu.the100th.ui.mainActivity.PlaceDetailViewModelFactory
+import com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -78,6 +78,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
                 instance(),
                 instance(),
                 instance(),
+                instance(),
                 instance()
             )
         }
@@ -104,7 +105,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { AllPlacesMapFragmentViewModelFactory(instance(),instance(),instance(),instance()) }
         bind() from provider { AllPlacesListFragmentViewModelFactory(instance(),instance(),instance(),instance()) }
-        bind() from provider { PlaceDetailViewModelFactory() }
+        bind() from provider { PlaceDetailViewModelFactory(instance(),instance()) }
         //bind() from provider { LoginViewModelFactory()}
 
 

@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.base
+package com.tu.pmu.the100th.ui.fragments.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,7 +1,6 @@
-package com.tu.pmu.the100th.ui.authActivities.signUp
+package com.tu.pmu.the100th.ui.activities.authActivities.signUp
 
 import android.os.Bundle
-import android.text.format.DateUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,8 +13,8 @@ import com.tu.pmu.the100th.databinding.ActivitySignupBinding
 import com.tu.pmu.the100th.internal.utils.LongDateUtils
 import com.tu.pmu.the100th.internal.utils.hideSoftKeyboard
 import com.tu.pmu.the100th.internal.utils.snackbar
-import com.tu.pmu.the100th.ui.authActivities.AuthViewModel
-import com.tu.pmu.the100th.ui.authActivities.AuthViewModelFactory
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModel
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.internal.utils.intentUtils.startLoginActivity
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.login100places
@@ -25,8 +24,6 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
-import org.threeten.bp.chrono.ChronoLocalDate
-import java.time.LocalDate
 import java.util.*
 
 class SignupActivity : AppCompatActivity(), KodeinAware {

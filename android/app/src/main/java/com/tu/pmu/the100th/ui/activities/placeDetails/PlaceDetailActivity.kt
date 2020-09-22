@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.mainActivity
+package com.tu.pmu.the100th.ui.activities.placeDetails
 
 import android.os.Bundle
 import android.widget.Toast

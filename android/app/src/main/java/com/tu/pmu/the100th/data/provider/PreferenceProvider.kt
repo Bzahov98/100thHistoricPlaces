@@ -23,12 +23,20 @@ open class PreferenceProvider(context: Context) {
             )
             .apply()
     }
+    fun saveLoggedOutAccessToken() {
+        preferences.edit()
+            .putString(
+                NationalPlacesApplication.getAppString(R.string.preferences_key_access_token),
+                ""
+            )
+            .apply()
+    }
 
-    fun getAccessToken() =
+    fun getAccessToken() : String =
         preferences.getString(
             NationalPlacesApplication.getAppString(R.string.preferences_key_access_token),
             NationalPlacesApplication.getAppString(R.string.default_access_token)
-        )
+        )!!
 
     fun saveCurrentLocation(position: LatLng) {
         preferences.edit()

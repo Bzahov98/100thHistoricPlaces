@@ -14,7 +14,7 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.mainActivity.MainActivity">
+            tools:context=".ui.activities.mainActivity.MainActivity">
 
         <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"

@@ -14,6 +14,7 @@ interface GetAllPlacesNetworkDataSource {
 
     suspend fun fetchGetAllPlacesResponseByName(
         name: String?,
+        latLng: LatLng,
         size: Int = Int.MAX_VALUE
     )
 
@@ -23,4 +24,5 @@ interface GetAllPlacesNetworkDataSource {
     )
 
     suspend fun check(placeId: String, location: LatLng)
+    val downloadedAllPlacesResponseLatLng: LiveData<GetAllPlacesResponse>
 }

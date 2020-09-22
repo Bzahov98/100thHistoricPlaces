@@ -26,4 +26,5 @@ interface UserRepository {
 //        password: String
 //    ): AuthResponse
 
+    suspend fun checkIsValidToken(): Boolean
 }

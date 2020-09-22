@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.mainActivity
+package com.tu.pmu.the100th.ui.activities.mainActivity
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -9,7 +9,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -19,7 +18,6 @@ import com.tu.pmu.the100th.data.db.entities.auth.User
 import com.tu.pmu.the100th.internal.location.LifecycleBoundLocationManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.closestKodein
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 

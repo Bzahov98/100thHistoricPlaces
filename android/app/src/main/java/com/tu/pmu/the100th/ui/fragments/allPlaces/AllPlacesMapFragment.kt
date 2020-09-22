@@ -28,7 +28,8 @@ import com.tu.pmu.the100th.internal.utils.LocationUtils.Companion.putMarkerOnMap
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.isPermissionGranted
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.requestPermission
-import com.tu.pmu.the100th.ui.mainActivity.PlaceDetailActivity
+import com.tu.pmu.the100th.internal.utils.intentUtils.startPlaceDetailActivity
+import com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -119,14 +120,14 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
                     .position(poi.latLng)
                     .title(poi.name)
             )
+            poiMarker.tag = "poi_${poiMarker.tag}"
             poiMarker.showInfoWindow()
         }
 
         map.setOnInfoWindowClickListener { marker ->
+            if(marker.tag.toString().contains("poi_")) return@setOnInfoWindowClickListener
             Log.i("on click", marker.tag.toString())
-            val intent = Intent(this@AllPlacesMapFragment.activity, PlaceDetailActivity::class.java)
-            intent.putExtra(PLACE_ID, marker.tag.toString())
-            startActivity(intent)
+            startPlaceDetailActivity(requireContext(), marker.tag.toString())
         }
 
         viewModel.placesEvent.observe(viewLifecycleOwner,
@@ -210,9 +211,9 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
          *
          *
          */
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1
 
-        val PLACE_ID = "placeId"
+       val PLACE_ID : String = "placeId"
     }
 
 }

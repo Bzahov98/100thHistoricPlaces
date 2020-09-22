@@ -30,9 +30,10 @@ class AllPlacesListFragmentViewModel(
     }
 
     suspend fun getAllPlacesRequestByName(
-        name: String
+        name: String,
+        latLng: LatLng
     ) = withContext(Dispatchers.IO) {
-        allPlacesRepository.getAllPlacesByName(name)
+        allPlacesRepository.getAllPlacesByName(name, latLng)
     }
 
     suspend fun getLastLocationLatLng(): LatLng {

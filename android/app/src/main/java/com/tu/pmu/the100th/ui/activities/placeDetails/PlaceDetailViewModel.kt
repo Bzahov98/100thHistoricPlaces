@@ -1,4 +1,4 @@
-package com.tu.pmu.the100th.ui.mainActivity
+package com.tu.pmu.the100th.ui.activities.placeDetails
 
 import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,6 @@ import com.tu.pmu.the100th.internal.utils.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PlaceDetailViewModel(
     val preferenceProvider: PreferenceProvider,

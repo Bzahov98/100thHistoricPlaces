@@ -32,9 +32,10 @@ class AllPlacesRepositoryImpl(
         }
     }
 
-    override suspend fun getAllPlacesByName(placeName: String) {
+    override suspend fun getAllPlacesByName(placeName: String, latLng: LatLng) {
         allPlacesDataSource.fetchGetAllPlacesResponseByName(
-            placeName
+            placeName,
+            latLng
         )
         // TODO save to db
     }

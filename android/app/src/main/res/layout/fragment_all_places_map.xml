@@ -5,7 +5,7 @@
     android:id="@+id/allPlacesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mainActivity.MainActivity">
+    tools:context=".ui.activities.mainActivity.MainActivity">
 
     <fragment
         android:id="@+id/allPlacesFragmentMap"

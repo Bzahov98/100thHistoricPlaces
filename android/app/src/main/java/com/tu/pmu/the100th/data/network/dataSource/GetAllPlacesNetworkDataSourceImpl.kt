@@ -14,8 +14,14 @@ import retrofit2.HttpException
 class GetAllPlacesNetworkDataSourceImpl(private val allPlacesApiService: PlacesApiService) :
     GetAllPlacesNetworkDataSource {
     private val TAG = "GetAllPlacesNetworkDataSource"
+    private val downloadedAllPlacesResponseMutable = MutableLiveData<GetAllPlacesResponse>()
     override val downloadedAllPlacesResponse: LiveData<GetAllPlacesResponse>
         get() = downloadedAllPlacesResponseMutable
+
+    private val downloadedAllPlacesResponseLatLngMutable = MutableLiveData<GetAllPlacesResponse>()
+    override val downloadedAllPlacesResponseLatLng: LiveData<GetAllPlacesResponse>
+        get() = downloadedAllPlacesResponseLatLngMutable
+
 
     override val downloadedByIdPlacesResponse: LiveData<PlaceDTO>
         get() = downloadedByIdPlacesResponseMutable
@@ -23,35 +29,16 @@ class GetAllPlacesNetworkDataSourceImpl(private val allPlacesApiService: PlacesA
     override val errorEvent: LiveData<String>
         get() = errorEventData
 
-    private val downloadedAllPlacesResponseMutable = MutableLiveData<GetAllPlacesResponse>()
     private val downloadedByIdPlacesResponseMutable = MutableLiveData<PlaceDTO>()
     private val errorEventData = MutableLiveData<String>()
 
-    override suspend fun fetchGetAllPlacesResponseByName(name: String?, size: Int) {
+    override suspend fun fetchGetAllPlacesResponseByName(name: String?, latLng: LatLng, size: Int) {
         try {
             val fetchedPlaces = allPlacesApiService
-                .getAllPlacesAsync(name)
+                .getAllPlacesAsync(name, latLng.latitude, latLng.longitude)
                 .await()
             downloadedAllPlacesResponseMutable.postValue(fetchedPlaces)
             Log.e(TAG, "CURRENT WEATHER: \n${fetchedPlaces.content}\n")
-        } catch (ignored: NoInternetException) {
-            Log.e(TAG, "No Internet Connection:")
-        } catch (e: HttpException) {
-            Log.e(
-                TAG,
-                "fetchSignUpResponse with Body with http error code: \n " +
-                        "${e.code()}, message: ${e.message()}, isSuccessful: ${e.response()?.isSuccessful} "
-            )
-        }
-    }
-
-    override suspend fun fetchById(id: String, position: LatLng?) {
-        try {
-            val fetchedPlaces = allPlacesApiService
-                .getByIdAsync(id, position?.latitude, position?.longitude)
-                .await()
-            downloadedByIdPlacesResponseMutable.postValue(fetchedPlaces)
-            Log.e(TAG, "CURRENT WEATHER: \n${fetchedPlaces}\n")
         } catch (ignored: NoInternetException) {
             Log.e(TAG, "No Internet Connection:")
         } catch (e: HttpException) {
@@ -80,6 +67,25 @@ class GetAllPlacesNetworkDataSourceImpl(private val allPlacesApiService: PlacesA
             )
         }
     }
+
+    override suspend fun fetchById(id: String, position: LatLng?) {
+        try {
+            val fetchedPlaces = allPlacesApiService
+                .getByIdAsync(id, position?.latitude, position?.longitude)
+                .await()
+            downloadedByIdPlacesResponseMutable.postValue(fetchedPlaces)
+            Log.e(TAG, "fetchById: \n${fetchedPlaces}\n")
+        } catch (ignored: NoInternetException) {
+            Log.e(TAG, "No Internet Connection:")
+        } catch (e: HttpException) {
+            Log.e(
+                TAG,
+                "fetchById with Body with http error code: \n " +
+                        "${e.code()}, message: ${e.message()}, isSuccessful: ${e.response()?.isSuccessful} "
+            )
+        }
+    }
+
 
     override suspend fun check(placeId: String, location: LatLng) {
         val checkedResponse =

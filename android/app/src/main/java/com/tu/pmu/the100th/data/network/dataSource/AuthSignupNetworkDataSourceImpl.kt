@@ -54,4 +54,26 @@ class AuthSignupNetworkDataSourceImpl(private val authApiService: AuthApiService
             )
         }
     }
+
+    override suspend fun fetchTokenResponse(accessToken: String) : Boolean{
+        try {
+            val fetchedAuth = authApiService
+                .checkAccessTokenAsync(accessToken)
+                .await()
+
+            Log.d(TAG, "fetchTokenResponse: is active${fetchedAuth.active}\n$fetchedAuth\n")
+            return fetchedAuth.active
+
+        } catch (ignored: NoInternetException) {
+            Log.e(TAG, "No Internet Connection:")
+            return false
+        }catch (e: HttpException) {
+            Log.e(
+                TAG,
+                "fetchTokenResponse with User with http error code:\n" +
+                        " ${e.code()}, message: ${e.message()}, isSuccessful: ${e.response()?.isSuccessful} "
+            )
+            return false
+        }
+    }
 }
