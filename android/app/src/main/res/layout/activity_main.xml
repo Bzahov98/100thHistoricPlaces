@@ -8,15 +8,6 @@
     tools:context=".ui.mainActivity.MainActivity">
 
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        android:theme="@style/ToolbarTheme"
-        style="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-        app:popupTheme="@style/NoToolbarTheme"/>
-
     <fragment
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"

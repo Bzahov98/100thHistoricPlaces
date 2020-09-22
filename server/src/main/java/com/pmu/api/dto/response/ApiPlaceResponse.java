@@ -19,4 +19,6 @@ public class ApiPlaceResponse {
     private Boolean checked;
 
     private BigDecimal distance;
+
+    private Integer points;
 }

@@ -42,13 +42,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
 
         navController = Navigation.findNavController(this, nav_host_fragment.id)
 
         bottom_navigation.setupWithNavController(navController)
-
-        NavigationUI.setupActionBarWithNavController(this, navController)
 
         if (hasLocationPermission()) {
             bindLocationManager()

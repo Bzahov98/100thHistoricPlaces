@@ -3,6 +3,7 @@ package com.tu.pmu.the100th.data.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.model.LatLng
 import com.tu.pmu.the100th.NationalPlacesApplication.Companion.getAppString
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.dao.AuthDao
@@ -15,6 +16,7 @@ import com.tu.pmu.the100th.data.network.responces.AuthLoginResponse
 import com.tu.pmu.the100th.data.network.responces.AuthResponse
 import com.tu.pmu.the100th.data.network.responces.AuthSignUpResponse
 import com.tu.pmu.the100th.data.provider.PreferenceProvider
+import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
 import com.tu.pmu.the100th.data.repo.interfaces.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,7 +27,8 @@ class UserRepositoryImpl(
     val userDao: AuthDao,
     private val loginDataSource: AuthLoginNetworkDataSource,
     private val signUpDataSource: AuthSignupNetworkDataSource,
-    private val preferenceProvider: PreferenceProvider
+    private val preferenceProvider: PreferenceProvider,
+    private val locationProvider: LocationProvider
 ) : UserRepository {
     private val TAG = "UserRepository"
     var savedUser: MutableLiveData<User> = MutableLiveData()
@@ -87,6 +90,9 @@ class UserRepositoryImpl(
         user.userStatus = UserStatusEnum.LoggedIn
         savedUser.postValue(user)
         preferenceProvider.saveAccessToken(user)
+        locationProvider.getLastPhysicalDeviceLocation()?.let { location ->
+            preferenceProvider.saveCurrentLocation(LatLng(location.latitude, location.longitude))
+        }
         return userDao.upsert(user)
     }
 

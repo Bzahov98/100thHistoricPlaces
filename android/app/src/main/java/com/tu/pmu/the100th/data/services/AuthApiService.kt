@@ -1,5 +1,6 @@
 package com.tu.pmu.the100th.data.services
 
+import com.grapesnberries.curllogger.CurlLoggerInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tu.pmu.the100th.NationalPlacesApplication
 import com.tu.pmu.the100th.R
@@ -57,6 +58,7 @@ interface AuthApiService {
             val okkHttpclient = OkHttpClient.Builder()
                 .addInterceptor(networkConnectionInterceptor)
                 .addInterceptor(basicAuthenticationInterceptor)
+                .addInterceptor(CurlLoggerInterceptor("Curl request"))
                 .build()
 
             return Retrofit.Builder()

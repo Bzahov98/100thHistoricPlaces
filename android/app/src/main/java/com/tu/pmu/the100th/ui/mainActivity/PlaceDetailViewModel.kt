@@ -1,6 +1,72 @@
 package com.tu.pmu.the100th.ui.mainActivity
 
+import androidx.databinding.Bindable
+import androidx.lifecycle.MutableLiveData
+import com.tu.pmu.the100th.data.network.responces.getAllPlaces.PlaceDTO
+import com.tu.pmu.the100th.data.provider.PreferenceProvider
+import com.tu.pmu.the100th.data.repo.interfaces.AllPlacesRepository
 import com.tu.pmu.the100th.internal.utils.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class PlaceDetailViewModel : BaseViewModel() {
+class PlaceDetailViewModel(
+    val preferenceProvider: PreferenceProvider,
+    val placesRepository: AllPlacesRepository
+) : BaseViewModel() {
+
+
+    private var place: PlaceDTO? = null
+
+    val errorEvent : MutableLiveData<String> = MutableLiveData()
+
+    init {
+        placesRepository.placeByIdEvent.observeForever {
+            place = it
+            notifyChange()
+        }
+
+        placesRepository.errorEvent.observeForever {
+            errorEvent.postValue(it)
+        }
+    }
+
+    fun getById(id: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            placesRepository.getById(id, preferenceProvider.getCurrentPosition())
+        }
+    }
+
+
+    val name: String
+        @Bindable get() = "Name : " + (place?.name ?: "")
+
+
+    val description: String
+        @Bindable get() = "Description : " + (place?.description ?: "")
+
+    val checked: String
+        @Bindable get() = if ((place?.checked == true)
+        ) "You already checked this place" else "You can check on this place"
+
+    val distance: String
+        @Bindable get() = "Distance from you : " + (place?.distance ?: 0.0) + " km"
+
+    val points: String
+        @Bindable get() = "Points : " + (place?.points ?: 0.0)
+
+    val enabled: Boolean
+        @Bindable get() = !(place?.checked ?: true)
+
+    fun check() {
+        GlobalScope.launch(Dispatchers.IO) {
+            place?.id?.let {
+                placesRepository.check(it, preferenceProvider.getCurrentPosition())
+                getById(it)
+            }
+        }
+    }
+
+
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Location
 import androidx.preference.PreferenceManager
+import com.google.android.gms.maps.model.LatLng
 import com.tu.pmu.the100th.NationalPlacesApplication
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.entities.auth.User
@@ -16,7 +17,10 @@ open class PreferenceProvider(context: Context) {
 
     fun saveAccessToken(user: User) {
         preferences.edit()
-            .putString(NationalPlacesApplication.getAppString(R.string.preferences_key_access_token), user.access_token)
+            .putString(
+                NationalPlacesApplication.getAppString(R.string.preferences_key_access_token),
+                user.access_token
+            )
             .apply()
     }
 
@@ -26,7 +30,31 @@ open class PreferenceProvider(context: Context) {
             NationalPlacesApplication.getAppString(R.string.default_access_token)
         )
 
-    companion object{
+    fun saveCurrentLocation(position: LatLng) {
+        preferences.edit()
+            .putFloat(
+                NationalPlacesApplication.getAppString(R.string.current_latitude),
+                position.latitude.toFloat()
+            )
+            .putFloat(
+                NationalPlacesApplication.getAppString(R.string.current_longitude),
+                position.longitude.toFloat()
+            )
+            .apply()
+    }
+
+    fun getCurrentPosition(): LatLng = LatLng(
+        preferences.getFloat(
+            NationalPlacesApplication.getAppString(R.string.current_latitude),
+            0f
+        ).toDouble(),
+        preferences.getFloat(
+            NationalPlacesApplication.getAppString(R.string.current_longitude),
+            0f
+        ).toDouble()
+    )
+
+    companion object {
 
         fun getFromSharedPreferenceStringToBoolean(
             context: Context,
