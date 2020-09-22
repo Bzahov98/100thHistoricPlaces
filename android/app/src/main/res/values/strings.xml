@@ -40,5 +40,7 @@
     <string name="location_permission_denied">Location permission denied</string>
     <string name="default_access_token" />
     <string name="preferences_key_access_token">access_token</string>
+    <string name="current_latitude">current_latitude</string>
+    <string name="current_longitude">current_longitude</string>
 
 </resources>

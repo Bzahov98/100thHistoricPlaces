@@ -78,6 +78,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
                 instance(),
                 instance(),
                 instance(),
+                instance(),
                 instance()
             )
         }
@@ -104,7 +105,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { AllPlacesMapFragmentViewModelFactory(instance(),instance(),instance(),instance()) }
-        bind() from provider { PlaceDetailViewModelFactory() }
+        bind() from provider { PlaceDetailViewModelFactory(instance(), instance()) }
         //bind() from provider { LoginViewModelFactory()}
 
 

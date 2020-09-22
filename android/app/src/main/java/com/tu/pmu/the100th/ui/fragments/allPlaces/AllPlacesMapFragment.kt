@@ -127,6 +127,7 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
         map.setOnInfoWindowClickListener { marker ->
             Log.i("on click", marker.tag.toString())
             val intent = Intent(this@AllPlacesMapFragment.activity, PlaceDetailActivity::class.java)
+            intent.putExtra(PLACE_ID, marker.tag.toString())
             startActivity(intent)
         }
 
@@ -211,6 +212,8 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
          * @see .onRequestPermissionsResult
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+
+        val PLACE_ID = "placeId"
     }
 
 }
