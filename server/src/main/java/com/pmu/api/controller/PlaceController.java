@@ -73,9 +73,14 @@ public class PlaceController {
 
     @PostMapping("/places/check/{placeId}")
     @ApiOperation("Check user for place")
-    public void checkUserOnPace(@PathVariable UUID placeId, @Valid @RequestBody LatLng latLng) {
+    public ApiPlaceResponse checkUserOnPace(@PathVariable UUID placeId, @Valid @RequestBody LatLng latLng) {
         Place place = placeService.findById(placeId);
-        userService.checkUserOnPlace(place, latLng);
+         userService.checkUserOnPlace(place, latLng);
+
+        ApiPlaceResponse response = modelMapper.map(place, ApiPlaceResponse.class);
+        response.setChecked(place.getCheckedUsers().stream().map(UserDetailPlaceAssignment::getUserDetail).map(UserDetail::getId).anyMatch(uuid -> uuid.equals(ContextHolder.get().getUserId())));
+        response.setDistance(Objects.isNull(latLng) ? null : BigDecimal.valueOf(DistanceUtil.calculateDistance(place.getLatLng(), latLng)).setScale(2, RoundingMode.HALF_DOWN));
+        return response;
     }
 
     @GetMapping("/places/me")
