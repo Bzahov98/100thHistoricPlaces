@@ -27,6 +27,7 @@ class LocationUtils {
                 // 2
                 addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
                 // 3
+                // REWORK not working as expected!!!
                 if (null != addresses && addresses.isNotEmpty()) {
                     address = addresses[0]
                     for (i in 0 until address.maxAddressLineIndex) {
@@ -37,18 +38,20 @@ class LocationUtils {
                 }
             } catch (e: IOException) {
                 Log.e(TAG, e?.localizedMessage)
-            }
 
+            }
+            if(addressText == ""){
+                addressText = String.format(
+                    Locale.getDefault(),
+                    "Lat: %1$.5f, Long: %2$.5f",
+                    latLng.latitude,
+                    latLng.longitude
+                )
+            }
             return addressText
         }
 
-        fun putMarkerOnMap(map: GoogleMap, latLng: LatLng, title : String) : Marker {
-            val snippet = String.format(
-                Locale.getDefault(),
-                "Lat: %1$.5f, Long: %2$.5f",
-                latLng.latitude,
-                latLng.longitude
-            )
+        fun putMarkerOnMap(map: GoogleMap, latLng: LatLng, title : String, snippet :String) : Marker {
              return map.addMarker(
                 MarkerOptions()
                     .position(latLng)

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/oneDayWeatherFragment"
+    style="@style/MaterialCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/placesItemPlaceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/place_name_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sofia Ndk" />
+
+        <TextView
+            android:id="@+id/placesItemDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:paddingStart="10dp"
+            android:textAlignment="viewStart"
+            android:paddingVertical="@dimen/row_item_margin_vertical"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="@dimen/place_description_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placesItemPlaceName"
+            tools:ignore="UnusedAttribute"
+            tools:text="@string/tools_ndk_description" />
+
+        <TextView
+            android:id="@+id/placesItemIsVisitedText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingVertical="@dimen/row_item_margin_vertical"
+            android:text="Already visited at 10.10.2020"
+            android:textSize="@dimen/place_description_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/placesItemMapImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placesItemDescription"
+            tools:ignore="RtlCompat" />
+
+        <ImageView
+            android:id="@+id/placesItemMapImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:layout_marginVertical="@dimen/row_item_margin_vertical"
+            android:src="@drawable/pickup_point_50px"
+            app:layout_constraintBottom_toBottomOf="@+id/placesItemDistanceToText"
+            app:layout_constraintEnd_toStartOf="@+id/placesItemDistanceToText"
+            app:layout_constraintTop_toTopOf="@+id/placesItemDistanceToText" />
+
+        <TextView
+            android:id="@+id/placesItemDistanceToText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+
+            android:paddingVertical="@dimen/row_item_margin_vertical"
+            android:textSize="@dimen/place_description_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/placesItemPointsText"
+            app:layout_constraintEnd_toStartOf="@id/placesItemPointsImage"
+            tools:text="30m" />
+
+        <ImageView
+            android:id="@+id/placesItemPointsImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+
+            android:layout_marginVertical="@dimen/row_item_margin_vertical"
+            android:src="@drawable/medal_black_50px"
+            app:layout_constraintBottom_toBottomOf="@+id/placesItemPointsText"
+            app:layout_constraintEnd_toStartOf="@+id/placesItemPointsText"
+            app:layout_constraintTop_toTopOf="@+id/placesItemPointsText" />
+
+        <TextView
+            android:id="@+id/placesItemPointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:paddingVertical="@dimen/row_item_margin_vertical"
+            android:textSize="@dimen/place_description_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placesItemDescription"
+            tools:text="4 Points" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,19 +1,17 @@
-package com.tu.pmu.the100th.ui.fragments.allPlaces
+package com.tu.pmu.the100th.ui.fragments.allPlacesList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.network.responces.GetAllPlacesResponse
 import com.tu.pmu.the100th.data.provider.PreferenceProvider
 import com.tu.pmu.the100th.data.provider.interfaces.InternetProvider
 import com.tu.pmu.the100th.data.provider.interfaces.LocationProvider
 import com.tu.pmu.the100th.data.repo.interfaces.AllPlacesRepository
-import com.tu.pmu.the100th.internal.utils.lazyDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AllPlacesMapFragmentViewModel(
+class AllPlacesListFragmentViewModel(
     val allPlacesRepository: AllPlacesRepository,
     val internetProvider: InternetProvider,
     val locationProvider: LocationProvider,
@@ -28,7 +26,13 @@ class AllPlacesMapFragmentViewModel(
     suspend fun getAllPlacesRequest(
         latLng: LatLng
     ) = withContext(Dispatchers.IO) {
-            allPlacesRepository.getAllPlacesByLatLng(latLng)
+        allPlacesRepository.getAllPlacesByLatLng(latLng)
+    }
+
+    suspend fun getAllPlacesRequestByName(
+        name: String
+    ) = withContext(Dispatchers.IO) {
+        allPlacesRepository.getAllPlacesByName(name)
     }
 
     suspend fun getLastLocationLatLng(): LatLng {

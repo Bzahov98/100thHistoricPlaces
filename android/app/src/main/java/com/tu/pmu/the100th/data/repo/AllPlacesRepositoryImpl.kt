@@ -20,7 +20,7 @@ class AllPlacesRepositoryImpl(
     private val allPlacesDataSource: GetAllPlacesNetworkDataSource,
     private val preferenceProvider: PreferenceProvider
 ) : AllPlacesRepository {
-    lateinit var allPlaces: GetAllPlacesResponse
+//    lateinit var allPlaces: GetAllPlacesResponse
     override var placesEvent: MutableLiveData<GetAllPlacesResponse> = MutableLiveData()
 
     init {
@@ -48,11 +48,11 @@ class AllPlacesRepositoryImpl(
             if (it != null) {
                 Log.d(
                     TAG,
-                    "persistFetchedLoginCreditentals: GetAllPlacesResponse content is $it ${it.content}"
+                    "persistFetchedAllPlacesCredentials: GetAllPlacesResponse content is \n$it\n with content\n${it.content}"
                 )
                 placesEvent.postValue(it)
                 //saveUser(User.parseAuthLoginResponse(it))
-            } else Log.e(TAG, "persistFetchedLoginCreditentals: authResponse is null")
+            } else Log.e(TAG, "persistFetchedAllPlacesCredentials: AllPlacesResponse is null")
         }
     }
 }

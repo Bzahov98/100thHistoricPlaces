@@ -147,6 +147,7 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation 'com.xwray:groupie-databinding:2.3.0'
+    implementation 'com.github.grapesnberries:curlloggerinterceptor:0.1'
 
     implementation 'androidx.annotation:annotation:1.1.0'
     testImplementation 'junit:junit:4.13'

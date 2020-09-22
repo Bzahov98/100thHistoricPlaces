@@ -8,8 +8,13 @@
         />
 
     <item
-        android:title="AllPlaces"
+        android:title="All Places"
         android:id="@+id/allPlacesFragment"
         android:icon="@drawable/map_50px"
+        />
+    <item
+        android:title="All Places List"
+        android:id="@+id/allPlacesListFragment"
+        android:icon="@drawable/places_list_50px"
         />
 </menu>

@@ -19,4 +19,13 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">#EEEEEE</item>
     </style>
+
+    <style name="MaterialCardView" parent="CardView.Dark">
+    <item name="cardBackgroundColor">@color/secondaryLightColor</item>
+    <item name="cardCornerRadius">@dimen/corner_radius</item>
+    <item name="cardUseCompatPadding">true</item>
+    <item name="android:textColor">@color/primaryTextColor</item>
+</style>
+
+<!--    <color name="primaryTextColor">#00E5FF</color>-->
 </resources>

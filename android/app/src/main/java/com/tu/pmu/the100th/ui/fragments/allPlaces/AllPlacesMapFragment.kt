@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tu.pmu.the100th.R
+import com.tu.pmu.the100th.internal.utils.LocationUtils.Companion.getAdressNameFromLatLng
 import com.tu.pmu.the100th.internal.utils.LocationUtils.Companion.putMarkerOnMap
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.isPermissionGranted
@@ -82,10 +83,7 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
 
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.getAllPlacesRequest(
-                LatLng(
-                    23.3888135,
-                    42.8987653
-                )
+                viewModel.getLastLocationLatLng()
             )
 //            val bla = viewModel.allPlaces2
 //            Log.e(TAG, "bla: ${bla.last().description}")
@@ -136,7 +134,8 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
                     val marker = putMarkerOnMap(
                         map,
                         place.latLng,
-                        place.name
+                        place.name,
+                        getAdressNameFromLatLng(place.latLng,requireContext())
                     )
                     marker.tag = place.id
                 })
@@ -210,7 +209,7 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
          *
          * @see .onRequestPermissionsResult
          */
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
 }

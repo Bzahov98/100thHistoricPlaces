@@ -5,8 +5,14 @@
 
     <fragment android:id="@+id/profileFragment"
         android:name="com.tu.pmu.the100th.ui.fragments.profile.ProfileFragment"
-        android:label="Profile" tools:layout="@layout/profile_fragment"/>
+        android:label="Profile"
+        tools:layout="@layout/profile_fragment"/>
     <fragment android:id="@+id/allPlacesFragment"
         android:name="com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragment"
-        android:label="All Places" tools:layout="@layout/fragment_all_places_map"/>
+        android:label="All Places"
+        tools:layout="@layout/fragment_all_places_map"/>
+    <fragment android:id="@+id/allPlacesListFragment"
+        android:name="com.tu.pmu.the100th.ui.fragments.allPlacesList.AllPlacesListFragment"
+        android:label="All Places List"
+        tools:layout="@layout/fragment_all_places_list"/>
 </navigation>

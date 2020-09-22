@@ -1,5 +1,19 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="subtitles_size">23sp</dimen>
+    <dimen name="normal_text_size">12sp</dimen>
+    <dimen name="corner_radius">15dp</dimen>
+    <dimen name="corner_radius_smaller">7dp</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="row_item_margin_vertical">12dp</dimen>
+    <dimen name="row_item_margin_horizontal">12dp</dimen>
+    <dimen name="place_name_size">24sp</dimen>
+    <dimen name="place_description_size">16sp</dimen>
+    <dimen name="repo_icon_size">24dp</dimen>
+    <dimen name="loading_progress_bar_size">36dp</dimen>
+    <dimen name="placeholder_item_height">32dp</dimen>
+    <dimen name="error_text_size">24sp</dimen>
 </resources>
