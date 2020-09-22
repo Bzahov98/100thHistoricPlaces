@@ -1,5 +1,7 @@
 package com.tu.pmu.the100th.data.network.responces.getAllPlaces
 
+import com.google.android.gms.maps.model.LatLng
+
 
 data class Content(
     val checked: Boolean,

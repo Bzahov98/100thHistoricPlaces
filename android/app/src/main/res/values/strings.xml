@@ -27,7 +27,7 @@
     <string name="login_dont_have_acc">Don\'t have an account?\nSign Up Here</string>
     <string name="sign_in">Sign In</string>
     <string name="debug_test_user_email">sadss@asd.com</string>
-    <string name="debug_test_user_email_new" >sadss1@asd.com</string>
+    <string name="debug_test_user_email_new">sadss1@asd.com</string>
     <string name="debug_test_user_pass">12345678</string>
     <string name="debug_test_user_first_name">Bojo</string>
     <string name="debug_test_user_last_name">Petio</string>

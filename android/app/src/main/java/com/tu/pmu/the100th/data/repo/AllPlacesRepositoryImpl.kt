@@ -2,6 +2,7 @@ package com.tu.pmu.the100th.data.repo
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.data.db.entities.auth.User
@@ -13,12 +14,15 @@ import com.tu.pmu.the100th.data.repo.interfaces.AllPlacesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.withTestContext
 
 class AllPlacesRepositoryImpl(
     private val allPlacesDataSource: GetAllPlacesNetworkDataSource,
     private val preferenceProvider: PreferenceProvider
 ) : AllPlacesRepository {
-    lateinit var allPlaces : GetAllPlacesResponse
+    lateinit var allPlaces: GetAllPlacesResponse
+    override var placesEvent: MutableLiveData<GetAllPlacesResponse> = MutableLiveData()
+
     init {
         allPlacesDataSource.downloadedAllPlacesResponse.observeForever {
             persistFetchedAllPlacesCredentials(it)
@@ -39,12 +43,6 @@ class AllPlacesRepositoryImpl(
         // TODO save to db
     }
 
-    // TODO add method to get all places data from db
-    override suspend fun getAllPlaces(): LiveData<List<Content>> {
-        //return allPlaces.content
-        TODO("not implemented")
-    }
-
     private fun persistFetchedAllPlacesCredentials(it: GetAllPlacesResponse?) {
         GlobalScope.launch(Dispatchers.IO) {
             if (it != null) {
@@ -52,7 +50,7 @@ class AllPlacesRepositoryImpl(
                     TAG,
                     "persistFetchedLoginCreditentals: GetAllPlacesResponse content is $it ${it.content}"
                 )
-                allPlaces = it
+                placesEvent.postValue(it)
                 //saveUser(User.parseAuthLoginResponse(it))
             } else Log.e(TAG, "persistFetchedLoginCreditentals: authResponse is null")
         }

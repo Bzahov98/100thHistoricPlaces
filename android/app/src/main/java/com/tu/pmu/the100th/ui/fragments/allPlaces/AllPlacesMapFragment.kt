@@ -1,10 +1,9 @@
 package com.tu.pmu.the100th.ui.fragments.allPlaces
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,8 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
@@ -27,13 +27,14 @@ import com.tu.pmu.the100th.internal.utils.LocationUtils.Companion.putMarkerOnMap
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.isPermissionGranted
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.requestPermission
+import com.tu.pmu.the100th.ui.mainActivity.PlaceDetailActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.util.function.Consumer
 
 class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener,
@@ -122,7 +123,24 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
             )
             poiMarker.showInfoWindow()
         }
-        putMarkerOnMap(map, bulgaria, "bla bla")
+
+        map.setOnInfoWindowClickListener { marker ->
+            Log.i("on click", marker.tag.toString())
+            val intent = Intent(this@AllPlacesMapFragment.activity, PlaceDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewModel.placesEvent.observe(viewLifecycleOwner,
+            Observer { t ->
+                t.content.forEach(Consumer { place ->
+                    val marker = putMarkerOnMap(
+                        map,
+                        place.latLng,
+                        place.name
+                    )
+                    marker.tag = place.id
+                })
+            })
     }
 
     private fun enableMyLocation() {
