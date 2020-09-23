@@ -11,11 +11,14 @@ import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.entities.auth.SignupUserJsonBody
 import com.tu.pmu.the100th.databinding.ActivitySignupBinding
 import com.tu.pmu.the100th.internal.utils.LongDateUtils
+import com.tu.pmu.the100th.internal.utils.ValidationUtils
+import com.tu.pmu.the100th.internal.utils.ValidationUtils.Companion.isValidName
 import com.tu.pmu.the100th.internal.utils.hideSoftKeyboard
 import com.tu.pmu.the100th.internal.utils.snackbar
 import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModel
 import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModelFactory
 import com.tu.pmu.the100th.internal.utils.intentUtils.startLoginActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.login100places
 import kotlinx.coroutines.Dispatchers
@@ -154,7 +157,15 @@ class SignupActivity : AppCompatActivity(), KodeinAware {
         birthDate: String
     ): Boolean {
         val isValid = true
-
+        if(!isValidName(name)){
+            signupFirstName.snackbar("Email address is invalid")
+            signupFirstName.error = "Name is invalid"
+        }
+        if (!ValidationUtils.isValidEmail(email)) {
+            signupEmail.snackbar("Email address is invalid")
+            signupEmail.error = "Email address is invalid"
+            return false
+        }
         return isValid // TODO
     }
 

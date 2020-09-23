@@ -22,7 +22,7 @@
                 android:layout_marginTop="45dp"
                 android:id="@+id/image_view_logo"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/common_full_open_on_phone"
+                android:background="@drawable/place"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 />

@@ -22,7 +22,7 @@
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="75dp"
-                android:background="@drawable/common_full_open_on_phone" />
+                android:background="@drawable/place" />
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
