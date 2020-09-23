@@ -58,7 +58,7 @@ class NationalPlacesApplication : Application(), KodeinAware {
         // bind different data sources for each api service
         bind<AuthLoginNetworkDataSource>() with singleton {
             AuthLoginNetworkDataSourceImpl(
-                instance()
+                instance(),instance()
             )
         }
         bind<AuthSignupNetworkDataSource>() with singleton {

@@ -23,6 +23,14 @@ open class PreferenceProvider(context: Context) {
             )
             .apply()
     }
+    fun saveAccessTokenWithString(accessToken: String) {
+        preferences.edit()
+            .putString(
+                NationalPlacesApplication.getAppString(R.string.preferences_key_access_token),
+                accessToken
+            )
+            .apply()
+    }
     fun saveLoggedOutAccessToken() {
         preferences.edit()
             .putString(

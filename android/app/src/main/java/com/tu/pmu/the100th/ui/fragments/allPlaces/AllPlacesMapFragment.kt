@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -30,6 +31,8 @@ import com.tu.pmu.the100th.internal.utils.PermissionUtils.isPermissionGranted
 import com.tu.pmu.the100th.internal.utils.PermissionUtils.requestPermission
 import com.tu.pmu.the100th.internal.utils.intentUtils.startPlaceDetailActivity
 import com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailActivity
+import kotlinx.android.synthetic.main.fragment_all_places_list.*
+import kotlinx.android.synthetic.main.fragment_all_places_map.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -89,6 +92,18 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
 //            val bla = viewModel.allPlaces2
 //            Log.e(TAG, "bla: ${bla.last().description}")
         }
+        placesMapSearchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (!::map.isInitialized) return@setOnEditorActionListener false
+
+//            val bla = viewModel.allPlaces2
+//            Log.e(TAG, "bla: ${bla.last().description}")
+                getAndShowAllPlacesBySearchName()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onResume() {
@@ -98,6 +113,26 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
             showMissingPermissionError()
             permissionDenied = false
         }
+    }
+    private fun getAndShowAllPlacesBySearchName() {
+        searchFolAllPlacesBySearch()
+        //updateReceivedData()
+    }
+
+    private fun searchFolAllPlacesBySearch() {
+        //clearUpdateMapData(null)
+        placesMapSearchEditText.isEnabled = false
+
+        val placeName = placesMapSearchEditText.text.trim().toString()
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.getAllPlacesRequestByName(
+                placeName,
+                viewModel.getLastLocationLatLng()
+            )
+        }.invokeOnCompletion {
+            placesMapSearchEditText.isEnabled = true
+        }
+
     }
 
     private fun setupMap() {
@@ -125,19 +160,20 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
         }
 
         map.setOnInfoWindowClickListener { marker ->
-            if(marker.tag.toString().contains("poi_")) return@setOnInfoWindowClickListener
+            if (marker.tag.toString().contains("poi_")) return@setOnInfoWindowClickListener
             Log.i("on click", marker.tag.toString())
             startPlaceDetailActivity(requireContext(), marker.tag.toString())
         }
 
         viewModel.placesEvent.observe(viewLifecycleOwner,
             Observer { t ->
+                map.clear()
                 t.content.forEach(Consumer { place ->
                     val marker = putMarkerOnMap(
                         map,
                         place.latLng,
                         place.name,
-                        getAdressNameFromLatLng(place.latLng,requireContext())
+                        getAdressNameFromLatLng(place.latLng, requireContext())
                     )
                     marker.tag = place.id
                 })
@@ -213,7 +249,7 @@ class AllPlacesMapFragment : Fragment(), OnMyLocationButtonClickListener,
          */
         const val LOCATION_PERMISSION_REQUEST_CODE = 1
 
-       val PLACE_ID : String = "placeId"
+        val PLACE_ID: String = "placeId"
     }
 
 }

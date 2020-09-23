@@ -5,11 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tu.pmu.the100th.data.network.dataSource.interfaces.AuthLoginNetworkDataSource
 import com.tu.pmu.the100th.data.network.responces.AuthLoginResponse
+import com.tu.pmu.the100th.data.provider.PreferenceProvider
 import com.tu.pmu.the100th.data.services.AuthApiService
 import com.tu.pmu.the100th.internal.utils.NoInternetException
 import retrofit2.HttpException
 
-class AuthLoginNetworkDataSourceImpl(private val authApiService: AuthApiService) :
+class AuthLoginNetworkDataSourceImpl(private val authApiService: AuthApiService, val preferenceProvider: PreferenceProvider) :
     AuthLoginNetworkDataSource {
     private val TAG = "AuthLoginNetworkDataSource"
     private val downloadedAuthDataMutable = MutableLiveData<AuthLoginResponse>()
@@ -22,8 +23,8 @@ class AuthLoginNetworkDataSourceImpl(private val authApiService: AuthApiService)
             val fetchedAuth = authApiService
                 .userLoginAsync(email, password)
                 .await()
+            preferenceProvider.saveAccessTokenWithString(fetchedAuth.accessToken) // REWORK DEBUG ACCESS TOKEN
             downloadedAuthDataMutable.postValue(fetchedAuth)
-
             //Log.d("TAG_connectivity", "CURRENT WEATHER: \n$fetchedAuth\n")
         } catch (ignored: NoInternetException) {
             Log.e(TAG, "No Internet Connection:")

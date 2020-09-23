@@ -21,7 +21,7 @@
     </style>
 
     <style name="MaterialCardView" parent="CardView.Dark">
-    <item name="cardBackgroundColor">@color/secondaryLightColor</item>
+    <item name="cardBackgroundColor">@android:color/white</item>
     <item name="cardCornerRadius">@dimen/corner_radius</item>
     <item name="cardUseCompatPadding">true</item>
     <item name="android:textColor">@color/primaryTextColor</item>

@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.internal.utils.PermissionUtils
+import com.tu.pmu.the100th.internal.utils.gone
 import com.tu.pmu.the100th.internal.utils.intentUtils.startPlaceDetailActivity
+import com.tu.pmu.the100th.internal.utils.show
 import com.tu.pmu.the100th.ui.fragments.base.ScopedFragment
 import com.tu.pmu.the100th.ui.fragments.allPlaces.AllPlacesMapFragment
 import com.tu.pmu.the100th.ui.fragments.allPlacesList.recyclerview.PlacesListItem
@@ -159,6 +161,9 @@ class AllPlacesListFragment : ScopedFragment(), KodeinAware {
         groupAdapter.clear()
         if (!items.isNullOrEmpty()) {
             groupAdapter.apply { addAll(items) }
+            placesNoResults.gone()
+        }else{
+            placesNoResults.show()
         }
         groupAdapter.notifyDataSetChanged()
     }

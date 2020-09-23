@@ -47,8 +47,9 @@
     <string name="loading">Loading</string>
     <string name="language">Language: %s</string>
     <string name="search_hint">Search Place by name</string>
-    <string name="no_results">No results 😓</string>
+    <string name="no_results">No results 😓 Search again</string>
     <string name="unknown">\?</string>
     <string name="retry">Retry</string>
     <string name="tools_ndk_description">Националният дворец на културата, съкратено НДК, е национален културен център в София за конференции, изложби и специални събития, най-големият конгресен център в Югоизточна Европа.</string>
+    <string name="leave_name_empty">Please leave name empty to show all places</string>
 </resources>

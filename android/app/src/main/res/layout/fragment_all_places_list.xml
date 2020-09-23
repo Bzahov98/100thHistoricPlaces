@@ -16,10 +16,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        app:helperText="@string/leave_name_empty"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:endIconCheckable="true"
+        app:startIconDrawable="@drawable/search_black40px"
         app:endIconDrawable="@drawable/search_black40px"
         app:layout_constraintTop_toTopOf="parent">
         <EditText
@@ -29,7 +31,7 @@
             android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
             android:inputType="textNoSuggestions"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:selectAllOnFocus="true"
             tools:text="Android"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -48,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UnusedAttribute"/>
 
-    <TextView android:id="@+id/emptyList"
+    <TextView
+        android:id="@+id/placesNoResults"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -58,6 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/input_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

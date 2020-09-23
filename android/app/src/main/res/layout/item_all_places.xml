@@ -40,18 +40,29 @@
             tools:ignore="UnusedAttribute"
             tools:text="@string/tools_ndk_description" />
 
+        <ImageView
+            android:id="@+id/placesItemIsCheckedImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:layout_marginVertical="@dimen/row_item_margin_vertical"
+            android:src="@drawable/cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/placesItemDistanceToText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/placesItemDistanceToText" />
+
         <TextView
             android:id="@+id/placesItemIsVisitedText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:autoSizeTextType="uniform"
             android:paddingVertical="@dimen/row_item_margin_vertical"
             android:text="Already visited at 10.10.2020"
             android:textSize="@dimen/place_description_size"
-            android:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/placesItemIsCheckedImage"
             app:layout_constraintEnd_toStartOf="@+id/placesItemMapImage"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placesItemDescription"
             tools:ignore="RtlCompat" />
 
@@ -61,7 +72,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:layout_marginVertical="@dimen/row_item_margin_vertical"
-            android:src="@drawable/pickup_point_50px"
+            android:src="@drawable/distance_between_points"
             app:layout_constraintBottom_toBottomOf="@+id/placesItemDistanceToText"
             app:layout_constraintEnd_toStartOf="@+id/placesItemDistanceToText"
             app:layout_constraintTop_toTopOf="@+id/placesItemDistanceToText" />
@@ -76,14 +87,13 @@
             android:textSize="@dimen/place_description_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/placesItemPointsText"
             app:layout_constraintEnd_toStartOf="@id/placesItemPointsImage"
-            tools:text="30m" />
+            tools:text="3km" />
 
         <ImageView
             android:id="@+id/placesItemPointsImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="1dp"
-
             android:layout_marginVertical="@dimen/row_item_margin_vertical"
             android:src="@drawable/medal_black_50px"
             app:layout_constraintBottom_toBottomOf="@+id/placesItemPointsText"
