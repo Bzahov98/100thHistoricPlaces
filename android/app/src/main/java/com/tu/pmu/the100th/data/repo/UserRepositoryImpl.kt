@@ -96,10 +96,14 @@ class UserRepositoryImpl(
         user.userStatus = UserStatusEnum.LoggedIn
         savedUser.postValue(user)
         preferenceProvider.saveAccessToken(user)
+        //saveLastKnownLocation()
+        return userDao.upsert(user)
+    }
+
+    override suspend fun saveLastKnownLocation() {
         locationProvider.getLastPhysicalDeviceLocation()?.let { location ->
             preferenceProvider.saveCurrentLocation(LatLng(location.latitude, location.longitude))
         }
-        return userDao.upsert(user)
     }
 
     override fun getLoggedInUser(): LiveData<User> {

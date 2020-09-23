@@ -31,9 +31,8 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     private val TAG = "LoginActivity"
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
-
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

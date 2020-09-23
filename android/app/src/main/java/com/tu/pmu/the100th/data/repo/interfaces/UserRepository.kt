@@ -27,4 +27,5 @@ interface UserRepository {
 //    ): AuthResponse
 
     suspend fun checkIsValidToken(): Boolean
+    suspend fun saveLastKnownLocation()
 }

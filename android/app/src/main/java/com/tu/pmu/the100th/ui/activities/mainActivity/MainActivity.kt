@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -16,7 +17,11 @@ import com.google.android.gms.location.LocationResult
 import com.tu.pmu.the100th.R
 import com.tu.pmu.the100th.data.db.entities.auth.User
 import com.tu.pmu.the100th.internal.location.LifecycleBoundLocationManager
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModel
+import com.tu.pmu.the100th.ui.activities.authActivities.AuthViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -29,9 +34,14 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     private lateinit var navController: NavController
 
     private val fusedLocationProviderClient: FusedLocationProviderClient by instance<FusedLocationProviderClient>() // Question Context ?= FusedLocationProviderClient
+    private val factory: MainActivityViewModelFactory by instance()
+    private lateinit var viewModel: MainActivityViewModel
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult?) {
+            GlobalScope.launch {
+                viewModel.saveLastKnownLocation()
+            }
             super.onLocationResult(p0)
         }
     }
@@ -42,6 +52,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
 
         navController = Navigation.findNavController(this, nav_host_fragment.id)
+        viewModel = ViewModelProvider(this, factory).get(MainActivityViewModel::class.java)
 
         bottom_navigation.setupWithNavController(navController)
 
