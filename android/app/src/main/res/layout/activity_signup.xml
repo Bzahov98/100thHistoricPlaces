@@ -7,7 +7,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/gray_background"
         android:id="@+id/signupActivityRoot"
         android:layout_height="match_parent"
         tools:context=".ui.auth.SignupActivity">

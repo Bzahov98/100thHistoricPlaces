@@ -16,7 +16,7 @@ class PlaceDetailViewModel(
 ) : BaseViewModel() {
 
 
-    private var place: PlaceDTO? = null
+    var place: PlaceDTO? = null
 
     val errorEvent : MutableLiveData<String> = MutableLiveData()
 
@@ -39,21 +39,21 @@ class PlaceDetailViewModel(
 
 
     val name: String
-        @Bindable get() = "Name : " + (place?.name ?: "")
+        @Bindable get() = "" + (place?.name ?: "")
 
 
     val description: String
-        @Bindable get() = "Description : " + (place?.description ?: "")
+        @Bindable get() ="" + (place?.description ?: "")
 
     val checked: String
         @Bindable get() = if ((place?.checked == true)
-        ) "You already checked this place" else "You can check on this place"
+        ) "You already checked here" else "You can check here"
 
     val distance: String
-        @Bindable get() = "Distance from you : " + (place?.distance ?: 0.0) + " km"
+        @Bindable get() = "" + (place?.distance ?: 0.0) + " km"
 
     val points: String
-        @Bindable get() = "Points : " + (place?.points ?: 0.0)
+        @Bindable get() = "" + (place?.points ?: 0.0)
 
     val enabled: Boolean
         @Bindable get() = !(place?.checked ?: true)

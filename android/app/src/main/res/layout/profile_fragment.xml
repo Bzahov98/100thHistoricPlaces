@@ -34,6 +34,7 @@
                     android:layout_gravity="center_horizontal"
                     tools:text="No user logged in"
                     android:text="@{viewmodel.user.name}"
+                    android:visibility="gone"
                     android:textColor="@color/colorPrimaryDark"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
                     tools:text="No user logged in"
                     android:text="@{viewmodel.user.email}"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <Button

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,80 +10,209 @@
             type="com.tu.pmu.the100th.ui.activities.placeDetails.PlaceDetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background= "@color/gray_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.activities.placeDetails.PlaceDetailActivity">
 
-        <TextView
-            android:id="@+id/txv_name"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txv_nameInput"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="20dp"
-            android:text="@{viewModel.name}"
+            android:background="@drawable/edit_text_round_gray_background"
+            android:hint="Place Name"
+            android:maxLines="3"
             android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txv_description"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txv_name"
+                android:layout_width="match_parent"
+                android:drawablePadding="6dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/profile_black2_50px"
+                android:text="@{viewModel.name}"
+                android:textSize="18sp"
+                tools:text="Pesho" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txv_descriptionInput"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:text="@{viewModel.description}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_round_gray_background"
+            android:hint="@string/description"
             android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txv_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txv_nameInput">
 
-        <TextView
-            android:id="@+id/txv_checked"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:drawablePadding="6dp"
+                android:drawableStart="@drawable/description_black_50px"
+                android:maxLines="10"
+                android:minLines="2"
+                android:text="@{viewModel.description}"
+                android:textSize="18sp"
+                tools:text="Pesho" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txv_checkedInput"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:text="@{viewModel.checked}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_round_gray_background"
+            android:hint="Are you checked here"
             android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txv_description" />
+            app:layout_constraintTop_toBottomOf="@+id/txv_descriptionInput">
 
-        <TextView
-            android:id="@+id/txv_distance"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txv_checked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/check"
+                android:drawablePadding="16dp"
+                android:text="@{viewModel.checked}"
+                android:textSize="18sp"
+                tools:text="Checkedd" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/txv_description"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="@{viewModel.description}"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/txv_nameInput" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txv_checked"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="@{viewModel.checked}"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txv_distanceInput"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:text="@{viewModel.distance}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_round_gray_background"
+            android:hint="Distance from you : "
             android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txv_checked" />
+            app:layout_constraintTop_toBottomOf="@+id/txv_checkedInput">
 
-        <TextView
-            android:id="@+id/txv_points"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txv_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/distance_between_points"
+                android:drawablePadding="16dp"
+                android:text="@{viewModel.distance}"
+                android:textSize="18sp"
+                tools:text="Checkedd" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txv_PointsInput"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:text="@{viewModel.points}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_round_gray_background"
+            android:hint="Points reward:"
             android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txv_distance" />
+            app:layout_constraintTop_toBottomOf="@+id/txv_distanceInput">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txv_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/medal_black_50px"
+                android:drawablePadding="16dp"
+                android:text="@{viewModel.points}"
+                android:textSize="18sp"
+                tools:text="5 points" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/txv_map_button"
+            android:layout_width="wrap_content"
+            android:drawableStart="@drawable/google_maps"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_height="wrap_content"
+            android:text="@string/view_on_map"
+            app:layout_constraintBottom_toTopOf="@+id/button_sign_in"
+            app:layout_constraintEnd_toEndOf="@+id/button_sign_in"
+            app:layout_constraintStart_toStartOf="@+id/button_sign_in"
+            app:layout_constraintTop_toBottomOf="@+id/txv_PointsInput" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/txv_distance"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="@{viewModel.distance}"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/txv_checked" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txv_points"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="@{viewModel.points}"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/txv_distance" />-->
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_sign_in"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="40dp"
